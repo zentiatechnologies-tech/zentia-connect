@@ -9,7 +9,7 @@ import {
 const faqs = [
   {
     q: "What makes Zentia different from other AI consultancies?",
-    a: "We're Africa-focused and results-driven. We start by understanding how your teams actually work, then build AI solutions that fit your context — not one-size-fits-all tools from elsewhere. We're tool-agnostic but outcome-obsessed.",
+    a: "We're Africa-focused and results-driven. We start by understanding how your teams actually work, then build AI solutions that fit your context, not one-size-fits-all tools from elsewhere. We're tool-agnostic but outcome-obsessed.",
   },
   {
     q: "How do I know if my business is ready for AI?",
