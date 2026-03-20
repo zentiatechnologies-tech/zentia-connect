@@ -9,7 +9,7 @@ const stats = [
 
 export default function StatsSection() {
   return (
-    <section className="py-24 md:py-32 relative grain-overlay overflow-hidden">
+    <section className="py-24 md:py-32 relative grain-overlay overflow-hidden" style={{ background: 'hsl(0 0% 97%)' }}>
       <div className="container relative z-10">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
           {stats.map((stat, i) => (
