@@ -13,7 +13,7 @@ const faqs = [
   },
   {
     q: "How do I know if my business is ready for AI?",
-    a: "If you have repetitive processes, growing data, or teams spending time on tasks that could be automated — you're ready. We'll help you identify what's worth pursuing and what's not.",
+    a: "If you have repetitive processes, growing data, or teams spending time on tasks that could be automated, you're ready. We'll help you identify what's worth pursuing and what's not.",
   },
   {
     q: "What happens after you deliver a solution?",
