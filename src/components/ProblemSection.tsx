@@ -91,7 +91,7 @@ export default function ProblemSection() {
             </RevealBlock>
             <RevealBlock delay={120}>
               <p className="mt-6 text-muted-foreground text-lg text-pretty max-w-xl leading-relaxed">
-                Zentia identifies what's worth building, builds it with you, then trains your people to make it stick. From strategy to adoption — we're with you at every step.
+                Zentia identifies what's worth building, builds it with you, then trains your people to make it stick. From strategy to adoption, we're with you at every step.
               </p>
             </RevealBlock>
           </div>
