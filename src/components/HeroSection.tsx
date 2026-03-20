@@ -30,7 +30,7 @@ export default function HeroSection({ onGetInTouch }: { onGetInTouch?: () => voi
           style={{ animationDelay: '150ms' }}
         >
           <p className="text-muted-foreground text-lg md:text-xl max-w-2xl mx-auto text-pretty leading-relaxed">
-            We help African businesses identify AI opportunities that drive real transformation — then we build it, deploy it, and train your team to own it.
+            We help African businesses identify AI opportunities that drive real transformation, then we build it, deploy it, and train your team to own it.
           </p>
         </div>
 

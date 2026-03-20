@@ -5,7 +5,7 @@ const statements = [
   "You know AI is reshaping industries across the continent.",
   "But finding the right talent, tools, and strategy feels overwhelming.",
   "Pilots stall. Teams aren't trained. ROI remains unclear.",
-  "You're not behind — you just need the right partner.",
+  "You're not behind. You just need the right partner.",
   "That's why we built Zentia.",
 ];
 
@@ -91,7 +91,7 @@ export default function ProblemSection() {
             </RevealBlock>
             <RevealBlock delay={120}>
               <p className="mt-6 text-muted-foreground text-lg text-pretty max-w-xl leading-relaxed">
-                Zentia identifies what's worth building, builds it with you, then trains your people to make it stick. From strategy to adoption — we're with you at every step.
+                Zentia identifies what's worth building, builds it with you, then trains your people to make it stick. From strategy to adoption, we're with you at every step.
               </p>
             </RevealBlock>
           </div>

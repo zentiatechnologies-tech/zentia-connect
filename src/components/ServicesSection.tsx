@@ -15,14 +15,14 @@ const services = [
     title: "Build",
     icon: Code2,
     description:
-      "Once we know what matters, we move fast. Our team designs and develops custom AI solutions that integrate seamlessly with your existing systems — built right from day one.",
+      "Once we know what matters, we move fast. Our team designs and develops custom AI solutions that integrate seamlessly with your existing systems. Built right from day one.",
   },
   {
     num: "3",
     title: "Train",
     icon: GraduationCap,
     description:
-      "We work alongside your teams — training, fine-tuning, and embedding AI into daily workflows. By the time we step back, it's not a project anymore. It's how work gets done.",
+      "We work alongside your teams, training, fine-tuning, and embedding AI into daily workflows. By the time we step back, it's not a project anymore. It's how work gets done.",
   },
 ];
 
