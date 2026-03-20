@@ -19,7 +19,6 @@ export default function Navbar() {
         <Link to="/" className="flex items-center">
           <img src={zentiaLogo} alt="Zentia Technologies" className="h-[100px] md:h-[120px] w-auto" />
         </Link>
-        </a>
 
         {/* Desktop */}
         <div className="hidden md:flex items-center gap-8">
