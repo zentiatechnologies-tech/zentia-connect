@@ -31,7 +31,7 @@ export default function Navbar({ onGetInTouch }: { onGetInTouch?: () => void }) 
               {link.label}
             </a>
           ))}
-          <Button variant="hero" size="lg">
+          <Button variant="hero" size="lg" onClick={onGetInTouch}>
             Get in Touch
           </Button>
         </div>
