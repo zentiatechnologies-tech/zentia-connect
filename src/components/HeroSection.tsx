@@ -20,7 +20,7 @@ export default function HeroSection({ onGetInTouch }: { onGetInTouch?: () => voi
         <div
           className={`${isVisible ? 'animate-reveal-up' : 'opacity-0'}`}
         >
-          <h1 className="font-heading font-900 text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-[0.95] tracking-tight text-foreground text-balance">
+          <h1 className="font-heading font-extrabold text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-[0.95] tracking-tight text-foreground text-balance">
             We bridge Africa's AI knowledge gap.
           </h1>
         </div>
