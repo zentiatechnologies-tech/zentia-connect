@@ -56,7 +56,7 @@ export default function ServicesSection({ onGetInTouch }: { onGetInTouch?: () =>
         </div>
 
         <div className="mt-16 text-center">
-          <Button variant="hero" size="lg" className="gap-2 px-8 py-6">
+          <Button variant="hero" size="lg" className="gap-2 px-8 py-6" onClick={onGetInTouch}>
             Get in Touch <ArrowRight size={16} />
           </Button>
         </div>

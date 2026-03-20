@@ -59,7 +59,7 @@ export default function Navbar({ onGetInTouch }: { onGetInTouch?: () => void }) 
               {link.label}
             </a>
           ))}
-          <Button variant="hero" size="lg" className="w-full mt-4">
+          <Button variant="hero" size="lg" className="w-full mt-4" onClick={onGetInTouch}>
             Get in Touch
           </Button>
         </div>
