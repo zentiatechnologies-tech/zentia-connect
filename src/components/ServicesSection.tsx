@@ -26,7 +26,7 @@ const services = [
   },
 ];
 
-export default function ServicesSection() {
+export default function ServicesSection({ onGetInTouch }: { onGetInTouch?: () => void }) {
   const { ref: headerRef, isVisible: headerVisible } = useScrollReveal(0.2);
 
   return (
@@ -56,7 +56,7 @@ export default function ServicesSection() {
         </div>
 
         <div className="mt-16 text-center">
-          <Button variant="hero" size="lg" className="gap-2 px-8 py-6">
+          <Button variant="hero" size="lg" className="gap-2 px-8 py-6" onClick={onGetInTouch}>
             Get in Touch <ArrowRight size={16} />
           </Button>
         </div>

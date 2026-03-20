@@ -2,7 +2,7 @@ import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 
-export default function HeroSection() {
+export default function HeroSection({ onGetInTouch }: { onGetInTouch?: () => void }) {
   const { ref, isVisible } = useScrollReveal(0.1);
 
   return (
@@ -38,7 +38,7 @@ export default function HeroSection() {
           className={`mt-12 flex flex-col sm:flex-row gap-4 justify-center ${isVisible ? 'animate-reveal-up' : 'opacity-0'}`}
           style={{ animationDelay: '300ms' }}
         >
-          <Button variant="hero" size="lg" className="gap-2 px-8 py-6">
+          <Button variant="hero" size="lg" className="gap-2 px-8 py-6" onClick={onGetInTouch}>
             Get in Touch <ArrowRight size={16} />
           </Button>
           <Button variant="heroOutline" size="lg" className="px-8 py-6">

@@ -1,5 +1,7 @@
+import { useState } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import ContactDialog from "@/components/ContactDialog";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { User } from "lucide-react";
 
@@ -19,9 +21,11 @@ const founders = [
 ];
 
 export default function About() {
+  const [contactOpen, setContactOpen] = useState(false);
+
   return (
     <div className="min-h-screen bg-background">
-      <Navbar />
+      <Navbar onGetInTouch={() => setContactOpen(true)} />
 
       {/* Hero */}
       <section className="pt-32 pb-20 md:pt-40 md:pb-28 relative grain-overlay">
@@ -115,6 +119,7 @@ export default function About() {
       </section>
 
       <Footer />
+      <ContactDialog open={contactOpen} onOpenChange={setContactOpen} />
     </div>
   );
 }
