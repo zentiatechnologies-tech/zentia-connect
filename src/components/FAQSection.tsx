@@ -37,7 +37,7 @@ export default function FAQSection() {
       <div className="container max-w-3xl relative z-10">
         <div ref={ref}>
           <h2
-            className={`font-heading font-bold text-3xl md:text-4xl text-foreground mb-4 ${isVisible ? 'animate-reveal-up' : 'opacity-0'}`}
+            className={`font-heading font-bold text-3xl md:text-4xl text-zentia-navy mb-4 ${isVisible ? 'animate-reveal-up' : 'opacity-0'}`}
           >
             FAQs
           </h2>
