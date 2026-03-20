@@ -26,7 +26,7 @@ const services = [
   },
 ];
 
-export default function ServicesSection() {
+export default function ServicesSection({ onGetInTouch }: { onGetInTouch?: () => void }) {
   const { ref: headerRef, isVisible: headerVisible } = useScrollReveal(0.2);
 
   return (
