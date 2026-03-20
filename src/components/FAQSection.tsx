@@ -69,7 +69,7 @@ function FAQItem({ faq, index }: { faq: (typeof faqs)[number]; index: number }) 
       style={{ animationDelay: `${index * 60}ms` }}
     >
       <AccordionItem value={`faq-${index}`} className="border-border/40">
-        <AccordionTrigger className="font-heading font-semibold text-left text-foreground hover:text-primary transition-colors py-5">
+        <AccordionTrigger className="font-heading font-semibold text-left text-zentia-navy hover:text-primary transition-colors py-5">
           {faq.q}
         </AccordionTrigger>
         <AccordionContent className="text-muted-foreground leading-relaxed pb-5">
