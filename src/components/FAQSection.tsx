@@ -72,7 +72,7 @@ function FAQItem({ faq, index }: { faq: (typeof faqs)[number]; index: number }) 
         <AccordionTrigger className="font-heading font-semibold text-left text-zentia-navy hover:text-primary transition-colors py-5">
           {faq.q}
         </AccordionTrigger>
-        <AccordionContent className="text-muted-foreground leading-relaxed pb-5">
+        <AccordionContent className="text-zentia-gray leading-relaxed pb-5">
           {faq.a}
         </AccordionContent>
       </AccordionItem>

@@ -33,7 +33,7 @@ function StatItem({ stat, index }: { stat: (typeof stats)[number]; index: number
       <p className="font-heading font-bold text-4xl md:text-5xl text-zentia-navy tabular-nums">
         {stat.value}
       </p>
-      <p className="mt-3 text-muted-foreground text-sm uppercase tracking-wider font-heading">
+      <p className="mt-3 text-zentia-gray text-sm uppercase tracking-wider font-heading">
         {stat.label}
       </p>
     </div>
