@@ -69,7 +69,7 @@ export default function About() {
                   Bridging Africa's AI knowledge gap
                 </h2>
                 <p className="text-zentia-gray leading-relaxed text-pretty">
-                  We bridge Africa's AI knowledge gap — by empowering businesses with the right AI knowledge and tools to save time, cut costs, and scale profitably.
+                  We bridge Africa's AI knowledge gap by empowering businesses with the right AI knowledge and tools to save time, cut costs, and scale profitably.
                 </p>
               </div>
             </RevealBlock>

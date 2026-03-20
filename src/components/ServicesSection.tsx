@@ -22,7 +22,7 @@ const services = [
     title: "Train",
     icon: GraduationCap,
     description:
-      "We work alongside your teams — training, fine-tuning, and embedding AI into daily workflows. By the time we step back, it's not a project anymore. It's how work gets done.",
+      "We work alongside your teams, training, fine-tuning, and embedding AI into daily workflows. By the time we step back, it's not a project anymore. It's how work gets done.",
   },
 ];
 

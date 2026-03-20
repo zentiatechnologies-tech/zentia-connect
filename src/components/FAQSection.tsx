@@ -24,7 +24,7 @@ const faqs = [
     a: "Most clients see a working pilot within weeks. We move fast, validate early, and scale only once value is proven.",
   },
   {
-    q: "We don't have a technical team — can we still work with you?",
+    q: "We don't have a technical team. Can we still work with you?",
     a: "Absolutely. We handle the technical complexity so your team can focus on their real work. Our training ensures your people are confident using AI tools day-to-day.",
   },
 ];
