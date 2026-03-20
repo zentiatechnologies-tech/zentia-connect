@@ -1,5 +1,7 @@
+import { useState } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import ContactDialog from "@/components/ContactDialog";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { User } from "lucide-react";
 
