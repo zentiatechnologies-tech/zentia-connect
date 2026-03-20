@@ -2,7 +2,7 @@ import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 
-export default function HeroSection() {
+export default function HeroSection({ onGetInTouch }: { onGetInTouch?: () => void }) {
   const { ref, isVisible } = useScrollReveal(0.1);
 
   return (
