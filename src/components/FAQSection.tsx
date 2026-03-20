@@ -33,16 +33,16 @@ export default function FAQSection() {
   const { ref, isVisible } = useScrollReveal(0.2);
 
   return (
-    <section id="faq" className="py-24 md:py-32 relative grain-overlay">
+    <section id="faq" className="py-24 md:py-32 relative grain-overlay" style={{ background: 'hsl(0 0% 97%)' }}>
       <div className="container max-w-3xl relative z-10">
         <div ref={ref}>
           <h2
-            className={`font-heading font-bold text-3xl md:text-4xl text-foreground mb-4 ${isVisible ? 'animate-reveal-up' : 'opacity-0'}`}
+            className={`font-heading font-bold text-3xl md:text-4xl text-zentia-navy mb-4 ${isVisible ? 'animate-reveal-up' : 'opacity-0'}`}
           >
             FAQs
           </h2>
           <p
-            className={`text-muted-foreground mb-12 ${isVisible ? 'animate-reveal-up' : 'opacity-0'}`}
+            className={`text-zentia-gray mb-12 ${isVisible ? 'animate-reveal-up' : 'opacity-0'}`}
             style={{ animationDelay: '80ms' }}
           >
             You've got questions. We've got answers.
@@ -69,10 +69,10 @@ function FAQItem({ faq, index }: { faq: (typeof faqs)[number]; index: number }) 
       style={{ animationDelay: `${index * 60}ms` }}
     >
       <AccordionItem value={`faq-${index}`} className="border-border/40">
-        <AccordionTrigger className="font-heading font-semibold text-left text-foreground hover:text-primary transition-colors py-5">
+        <AccordionTrigger className="font-heading font-semibold text-left text-zentia-navy hover:text-primary transition-colors py-5">
           {faq.q}
         </AccordionTrigger>
-        <AccordionContent className="text-muted-foreground leading-relaxed pb-5">
+        <AccordionContent className="text-zentia-gray leading-relaxed pb-5">
           {faq.a}
         </AccordionContent>
       </AccordionItem>

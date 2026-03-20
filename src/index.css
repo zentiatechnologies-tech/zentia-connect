@@ -51,6 +51,11 @@
     --zentia-green: 160 99% 39%;
     --zentia-gray: 220 5% 44%;
     --zentia-light: 220 5% 85%;
+
+    /* White section tokens */
+    --section-light-bg: 0 0% 97%;
+    --section-light-fg: 207 55% 17%;
+    --section-light-muted: 220 5% 44%;
   }
 }
 
