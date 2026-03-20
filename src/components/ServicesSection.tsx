@@ -15,7 +15,7 @@ const services = [
     title: "Build",
     icon: Code2,
     description:
-      "Once we know what matters, we move fast. Our team designs and develops custom AI solutions that integrate seamlessly with your existing systems — built right from day one.",
+      "Once we know what matters, we move fast. Our team designs and develops custom AI solutions that integrate seamlessly with your existing systems. Built right from day one.",
   },
   {
     num: "3",
