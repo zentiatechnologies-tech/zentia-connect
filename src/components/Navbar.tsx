@@ -4,9 +4,9 @@ import zentiaLogo from "@/assets/zentia-logo-white.png";
 import { Menu, X } from "lucide-react";
 
 const navLinks = [
-  { label: "Services", href: "#services" },
-  { label: "About", href: "#about" },
-  { label: "FAQ", href: "#faq" },
+  { label: "Services", href: "/#services" },
+  { label: "About", href: "/about" },
+  { label: "FAQ", href: "/#faq" },
 ];
 
 export default function Navbar() {
