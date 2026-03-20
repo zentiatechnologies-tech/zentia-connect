@@ -10,7 +10,7 @@ const navLinks = [
   { label: "FAQ", href: "/#faq" },
 ];
 
-export default function Navbar() {
+export default function Navbar({ onGetInTouch }: { onGetInTouch?: () => void }) {
   const [open, setOpen] = useState(false);
 
   return (
