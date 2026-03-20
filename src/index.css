@@ -65,8 +65,10 @@
   }
 
   body {
-    @apply bg-background text-foreground antialiased;
+    @apply text-foreground antialiased;
     font-family: 'Outfit', sans-serif;
+    background: linear-gradient(180deg, hsl(207 55% 19%) 0%, hsl(207 55% 14%) 50%, hsl(207 55% 17%) 100%);
+    background-attachment: fixed;
   }
 
   h1, h2, h3, h4, h5, h6 {
