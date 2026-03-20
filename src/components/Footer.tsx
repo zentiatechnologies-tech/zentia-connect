@@ -1,10 +1,9 @@
 import zentiaLogo from "@/assets/zentia-logo-white.png";
 
 const exploreLinks = [
-  { label: "Services", href: "#services" },
-  { label: "About", href: "#about" },
-  { label: "Values", href: "#values" },
-  { label: "FAQ", href: "#faq" },
+  { label: "Services", href: "/#services" },
+  { label: "About", href: "/about" },
+  { label: "FAQ", href: "/#faq" },
 ];
 
 const socialLinks = [
