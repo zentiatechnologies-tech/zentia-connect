@@ -21,9 +21,11 @@ const founders = [
 ];
 
 export default function About() {
+  const [contactOpen, setContactOpen] = useState(false);
+
   return (
     <div className="min-h-screen bg-background">
-      <Navbar />
+      <Navbar onGetInTouch={() => setContactOpen(true)} />
 
       {/* Hero */}
       <section className="pt-32 pb-20 md:pt-40 md:pb-28 relative grain-overlay">
