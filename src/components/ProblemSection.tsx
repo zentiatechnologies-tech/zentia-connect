@@ -52,10 +52,12 @@ export default function ProblemSection() {
               const offsetY = dist * count * 80; // pixels of vertical shift
               const absDist = Math.abs(dist * count);
               const opacity = isLast
-                ? Math.max(0, Math.min(1, 1 - absDist * 1.2))
+                ? dist > 0
+                  ? Math.max(0, 1 - dist * count * 1.5) // fade out as scrolling continues
+                  : Math.max(0, Math.min(1, 1 - absDist * 1.2))
                 : dist > 0
-                  ? Math.max(0, 1 - dist * count * 1.5) // fading out as it scrolls up
-                  : Math.max(0, Math.min(1, 1 - absDist * 1.5)); // fading in from below
+                  ? Math.max(0, 1 - dist * count * 1.5)
+                  : Math.max(0, Math.min(1, 1 - absDist * 1.5));
 
               return (
                 <h2
