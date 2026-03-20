@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import zentiaLogo from "@/assets/zentia-logo-white.png";
 import { Menu, X } from "lucide-react";
