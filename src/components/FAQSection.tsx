@@ -42,7 +42,7 @@ export default function FAQSection() {
             FAQs
           </h2>
           <p
-            className={`text-muted-foreground mb-12 ${isVisible ? 'animate-reveal-up' : 'opacity-0'}`}
+            className={`text-zentia-gray mb-12 ${isVisible ? 'animate-reveal-up' : 'opacity-0'}`}
             style={{ animationDelay: '80ms' }}
           >
             You've got questions. We've got answers.
