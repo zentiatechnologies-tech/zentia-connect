@@ -33,7 +33,7 @@ export default function FAQSection() {
   const { ref, isVisible } = useScrollReveal(0.2);
 
   return (
-    <section id="faq" className="py-24 md:py-32 relative grain-overlay">
+    <section id="faq" className="py-24 md:py-32 relative grain-overlay" style={{ background: 'hsl(0 0% 97%)' }}>
       <div className="container max-w-3xl relative z-10">
         <div ref={ref}>
           <h2
