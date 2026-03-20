@@ -119,6 +119,7 @@ export default function About() {
       </section>
 
       <Footer />
+      <ContactDialog open={contactOpen} onOpenChange={setContactOpen} />
     </div>
   );
 }
