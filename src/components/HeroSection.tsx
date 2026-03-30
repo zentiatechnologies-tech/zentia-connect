@@ -41,7 +41,7 @@ export default function HeroSection({ onGetInTouch }: { onGetInTouch?: () => voi
           <Button variant="hero" size="lg" className="gap-2 px-8 py-6" onClick={onGetInTouch}>
             Get in Touch <ArrowRight size={16} />
           </Button>
-          <Button variant="heroOutline" size="lg" className="px-8 py-6">
+          <Button variant="heroOutline" size="lg" className="px-8 py-6" onClick={() => document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })}>
             Our Services
           </Button>
         </div>
