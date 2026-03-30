@@ -11,6 +11,12 @@ export default function StatsSection() {
   return (
     <section className="py-24 md:py-32 relative grain-overlay overflow-hidden" style={{ background: 'hsl(0 0% 97%)' }}>
       <div className="container relative z-10">
+        <div className="flex items-center gap-3 mb-16">
+          <div className="w-2 h-2 rounded-full bg-primary" />
+          <p className="font-heading text-xs uppercase tracking-widest text-primary">
+            Our goals
+          </p>
+        </div>
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
           {stats.map((stat, i) => (
             <StatItem key={stat.label} stat={stat} index={i} />
