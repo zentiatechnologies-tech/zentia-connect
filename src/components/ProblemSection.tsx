@@ -37,7 +37,7 @@ export default function ProblemSection() {
       ref={sectionRef}
       id="about"
       className="relative grain-overlay"
-      style={{ height: `${count * 80 + 100}vh` }}
+      style={{ height: `${count * 80 + 160}vh` }}
     >
       {/* Sticky viewport */}
       <div className="sticky top-0 h-screen flex items-center overflow-hidden">
