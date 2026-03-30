@@ -4,7 +4,7 @@ import { useScrollReveal } from "@/hooks/useScrollReveal";
 const statements = [
   "You know AI is reshaping industries across the continent.",
   "But finding the right talent, tools, and strategy feels overwhelming.",
-  "Pilots stall. Teams aren't trained. ROI remains unclear.",
+  "AI ideas stall. Teams aren't trained. ROI remains unclear.",
   "You're not behind. You just need the right partner.",
   "That's why we built Zentia.",
 ];
