@@ -51,13 +51,11 @@ export default function ProblemSection() {
               // How far this line has scrolled past (positive = scrolled up past center)
               const offsetY = dist * count * 80; // pixels of vertical shift
               const absDist = Math.abs(dist * count);
-              const opacity = isLast
-                ? dist > 0
-                  ? Math.max(0, 1 - dist * count * 1.5) // fade out as scrolling continues
-                  : Math.max(0, Math.min(1, 1 - absDist * 1.2))
-                : dist > 0
-                  ? Math.max(0, 1 - dist * count * 1.5)
-                  : Math.max(0, Math.min(1, 1 - absDist * 1.5));
+              // Stay at full opacity for a wide range, then fade sharply at edges
+              const fadeIn = Math.max(0, Math.min(1, 1 - Math.max(0, absDist - 0.3) * 3));
+              const opacity = dist > 0
+                ? Math.max(0, 1 - Math.max(0, dist * count - 0.4) * 2.5)
+                : fadeIn;
 
               return (
                 <h2
