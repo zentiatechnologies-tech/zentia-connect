@@ -38,7 +38,7 @@ export default function ServicesSection({ onGetInTouch }: { onGetInTouch?: () =>
             className={`font-heading text-xs uppercase tracking-widest text-primary ${headerVisible ? 'animate-reveal-up' : 'opacity-0'}`}
             style={{ animationDelay: '80ms' }}
           >
-            Our approach
+            Our services
           </p>
         </div>
 
