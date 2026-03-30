@@ -6,12 +6,19 @@ import {
   DialogDescription,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { ExternalLink, Phone, Mail } from "lucide-react";
+import { ExternalLink, Phone, Mail, Twitter, Instagram, Facebook, Linkedin } from "lucide-react";
 
 interface ContactDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
 }
+
+const socials = [
+  { icon: Twitter, href: "https://x.com/ZentiaTech", label: "X/Twitter" },
+  { icon: Instagram, href: "https://www.instagram.com/zentiaai/", label: "Instagram" },
+  { icon: Facebook, href: "https://www.facebook.com/profile.php?id=61577446617141", label: "Facebook" },
+  { icon: Linkedin, href: "https://www.linkedin.com/company/zentia-technologies/", label: "LinkedIn" },
+];
 
 export default function ContactDialog({ open, onOpenChange }: ContactDialogProps) {
   return (
@@ -49,12 +56,39 @@ export default function ContactDialog({ open, onOpenChange }: ContactDialogProps
               +256 793 391 078
             </a>
             <a
+              href="mailto:info@zentiaai.com"
+              className="flex items-center gap-3 text-sm text-foreground hover:text-primary transition-colors"
+            >
+              <Mail size={16} className="text-primary" />
+              info@zentiaai.com
+            </a>
+            <a
               href="mailto:zentiatechnologies@gmail.com"
               className="flex items-center gap-3 text-sm text-foreground hover:text-primary transition-colors"
             >
               <Mail size={16} className="text-primary" />
               zentiatechnologies@gmail.com
             </a>
+          </div>
+
+          <div className="border-t border-border/40 pt-5">
+            <p className="font-heading text-xs uppercase tracking-widest text-muted-foreground mb-4">
+              Follow us
+            </p>
+            <div className="flex items-center gap-4">
+              {socials.map(({ icon: Icon, href, label }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-muted-foreground hover:text-primary transition-colors"
+                  aria-label={label}
+                >
+                  <Icon size={20} />
+                </a>
+              ))}
+            </div>
           </div>
         </div>
       </DialogContent>
