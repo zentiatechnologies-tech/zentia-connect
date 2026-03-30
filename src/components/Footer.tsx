@@ -7,10 +7,10 @@ const exploreLinks = [
 ];
 
 const socialLinks = [
-  { label: "LinkedIn", href: "https://linkedin.com" },
-  { label: "Twitter/X", href: "https://x.com" },
-  { label: "Instagram", href: "https://instagram.com" },
-  { label: "Facebook", href: "https://facebook.com" },
+  { label: "LinkedIn", href: "https://www.linkedin.com/company/zentia-technologies/" },
+  { label: "Twitter/X", href: "https://x.com/ZentiaTech" },
+  { label: "Instagram", href: "https://www.instagram.com/zentiaai/" },
+  { label: "Facebook", href: "https://www.facebook.com/profile.php?id=61577446617141" },
 ];
 
 export default function Footer() {
