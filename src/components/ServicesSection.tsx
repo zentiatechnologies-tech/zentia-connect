@@ -43,7 +43,7 @@ export default function ServicesSection({ onGetInTouch }: { onGetInTouch?: () =>
         </div>
 
         <h2
-          className={`font-heading font-bold text-3xl md:text-4xl lg:text-5xl text-foreground mb-20 max-w-2xl text-balance leading-tight ${headerVisible ? 'animate-reveal-up' : 'opacity-0'}`}
+          className={`font-heading font-bold text-3xl md:text-4xl lg:text-5xl text-foreground mb-20 md:max-w-none md:whitespace-nowrap text-balance leading-tight ${headerVisible ? 'animate-reveal-up' : 'opacity-0'}`}
           style={{ animationDelay: '160ms' }}
         >
           Three steps to AI-powered efficiency.
