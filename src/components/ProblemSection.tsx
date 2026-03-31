@@ -54,7 +54,9 @@ export default function ProblemSection() {
               // Stay at full opacity for a wide range, then fade sharply at edges
               const fadeIn = Math.max(0, Math.min(1, 1 - Math.max(0, absDist - 0.3) * 3));
               const opacity = dist > 0
-                ? Math.max(0, 1 - Math.max(0, dist * count - 0.4) * 2.5)
+                ? isLast
+                  ? Math.max(0, 1 - Math.max(0, dist * count) * 4)
+                  : Math.max(0, 1 - Math.max(0, dist * count - 0.4) * 2.5)
                 : fadeIn;
 
               return (
