@@ -18,7 +18,7 @@ export default function Navbar({ onGetInTouch }: { onGetInTouch?: () => void }) 
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border/40">
       <div className="container flex items-center justify-between h-16 md:h-20">
         <Link to="/" className="flex items-center">
-          <img src={zentiaLogo} alt="Zentia Technologies" className="h-[300px] md:h-[360px] w-auto" width={360} height={360} fetchPriority="high" />
+          <img src={zentiaLogo} alt="Zentia Technologies" className="h-[150px] md:h-[180px] w-auto" width={180} height={180} fetchPriority="high" />
         </Link>
 
         {/* Desktop */}
