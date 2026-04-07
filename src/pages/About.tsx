@@ -5,6 +5,7 @@ import ContactDialog from "@/components/ContactDialog";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { User } from "lucide-react";
 import dianaNakiwalaImg from "@/assets/diana-nakiwala.png";
+import kazooraAbayoImg from "@/assets/kazoora-abayo.jpg";
 
 const founders = [
   {
@@ -12,7 +13,7 @@ const founders = [
     role: "CEO & Co-Founder",
     description:
       "Creative strategist with a passion for unlocking business potential through smart automation. Kazoora brings deep local market understanding and a relentless focus on outcomes that matter.",
-    image: undefined as string | undefined,
+    image: kazooraAbayoImg,
   },
   {
     name: "Diana Nakiwala",
