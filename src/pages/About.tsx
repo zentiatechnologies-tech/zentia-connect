@@ -4,6 +4,7 @@ import Footer from "@/components/Footer";
 import ContactDialog from "@/components/ContactDialog";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { User } from "lucide-react";
+import dianaNakiwalaImg from "@/assets/diana-nakiwala.png";
 
 const founders = [
   {
@@ -11,12 +12,14 @@ const founders = [
     role: "CEO & Co-Founder",
     description:
       "Creative strategist with a passion for unlocking business potential through smart automation. Kazoora brings deep local market understanding and a relentless focus on outcomes that matter.",
+    image: undefined as string | undefined,
   },
   {
     name: "Diana Nakiwala",
     role: "CTO & Co-Founder",
     description:
       "Technical architect who turns complex AI systems into elegant, practical solutions. Diana ensures every deployment is robust, scalable, and built for real-world African business conditions.",
+    image: dianaNakiwalaImg,
   },
 ];
 
@@ -142,7 +145,11 @@ function FounderCard({
       <div className="rounded-xl border border-border/40 bg-white overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
         {/* Photo placeholder */}
         <div className="aspect-[4/5] bg-zentia-navy/5 flex items-center justify-center">
+        {founder.image ? (
+          <img src={founder.image} alt={founder.name} className="w-full h-full object-cover" />
+        ) : (
           <User className="w-20 h-20 text-zentia-gray/30" strokeWidth={1} />
+        )}
         </div>
         <div className="p-6">
           <h3 className="font-heading font-bold text-xl text-zentia-navy">
