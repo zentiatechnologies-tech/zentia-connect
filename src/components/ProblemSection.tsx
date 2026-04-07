@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
+import starImg from "@/assets/star.png";
+import circleImg from "@/assets/circle.png";
 
 const statements = [
   "You know AI is reshaping industries across the continent.",
@@ -41,6 +43,19 @@ export default function ProblemSection() {
     >
       {/* Sticky viewport */}
       <div className="sticky top-0 h-screen flex items-center overflow-hidden">
+        {/* Floating decorative shapes */}
+        <img
+          src={starImg}
+          alt=""
+          className="absolute w-32 md:w-48 opacity-20 blur-sm animate-float-sparkle pointer-events-none"
+          style={{ top: '20%', right: '10%', animationDuration: '8s' }}
+        />
+        <img
+          src={circleImg}
+          alt=""
+          className="absolute w-24 md:w-40 opacity-15 blur-md animate-float-sparkle pointer-events-none"
+          style={{ top: '55%', left: '5%', animationDuration: '10s', animationDelay: '2s' }}
+        />
         <div className="container max-w-3xl relative z-10">
           <div className="relative" style={{ height: '260px' }}>
             {statements.map((text, i) => {
