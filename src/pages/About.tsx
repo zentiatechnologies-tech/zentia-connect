@@ -12,12 +12,14 @@ const founders = [
     role: "CEO & Co-Founder",
     description:
       "Creative strategist with a passion for unlocking business potential through smart automation. Kazoora brings deep local market understanding and a relentless focus on outcomes that matter.",
+    image: undefined as string | undefined,
   },
   {
     name: "Diana Nakiwala",
     role: "CTO & Co-Founder",
     description:
       "Technical architect who turns complex AI systems into elegant, practical solutions. Diana ensures every deployment is robust, scalable, and built for real-world African business conditions.",
+    image: dianaNakiwalaImg,
   },
 ];
 
