@@ -4,6 +4,7 @@ import Footer from "@/components/Footer";
 import ContactDialog from "@/components/ContactDialog";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { User } from "lucide-react";
+import dianaNakiwalaImg from "@/assets/diana-nakiwala.png";
 
 const founders = [
   {
