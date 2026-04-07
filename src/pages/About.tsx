@@ -145,7 +145,11 @@ function FounderCard({
       <div className="rounded-xl border border-border/40 bg-white overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
         {/* Photo placeholder */}
         <div className="aspect-[4/5] bg-zentia-navy/5 flex items-center justify-center">
+        {founder.image ? (
+          <img src={founder.image} alt={founder.name} className="w-full h-full object-cover" />
+        ) : (
           <User className="w-20 h-20 text-zentia-gray/30" strokeWidth={1} />
+        )}
         </div>
         <div className="p-6">
           <h3 className="font-heading font-bold text-xl text-zentia-navy">
