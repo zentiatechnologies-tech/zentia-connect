@@ -22,7 +22,7 @@ const resources = [
     category: "Template",
     icon: FileText,
     type: "Free",
-    link: "#",
+    link: "https://drive.google.com/drive/folders/1a07QKUu2nOE5zQiTgtqZzlCun4LyYW5E?usp=drive_link",
   },
   {
     title: "Introduction to AI for Decision Makers",
