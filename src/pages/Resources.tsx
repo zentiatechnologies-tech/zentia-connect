@@ -91,7 +91,17 @@ const Resources = () => {
                   ))}
                 </div>
               ) : (
-                <p className="text-muted-foreground text-lg py-8">Coming soon</p>
+                <div className="py-8">
+                  <p className="text-muted-foreground text-lg mb-4">Coming soon</p>
+                  {group.folderLink && (
+                    <Button variant="outline" className="gap-2" asChild>
+                      <a href={group.folderLink} target="_blank" rel="noopener noreferrer">
+                        <ExternalLink className="w-4 h-4" />
+                        Browse folder on Google Drive
+                      </a>
+                    </Button>
+                  )}
+                </div>
               )}
             </section>
           ))}
