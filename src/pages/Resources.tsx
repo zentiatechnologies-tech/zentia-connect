@@ -27,9 +27,9 @@ const resources = [
 ];
 
 const groups = [
-  { label: "Guides", items: resources.filter(r => r.category === "Guide" || r.category === "Whitepaper" || r.category === "Case Study") },
-  { label: "Templates", items: resources.filter(r => r.category === "Template") },
-  { label: "Resources", items: resources.filter(r => r.category === "Video") },
+  { label: "Guides", items: resources.filter(r => r.category === "Guide" || r.category === "Whitepaper" || r.category === "Case Study"), folderLink: "" },
+  { label: "Templates", items: resources.filter(r => r.category === "Template"), folderLink: "https://drive.google.com/drive/folders/1a07QKUu2nOE5zQiTgtqZzlCun4LyYW5E?usp=drive_link" },
+  { label: "Resources", items: resources.filter(r => r.category === "Video"), folderLink: "https://drive.google.com/drive/folders/1rnTFgjRVMuqh46GK4ZBbn5nuNS3FvFxs?usp=drive_link" },
 ];
 
 const Resources = () => {
