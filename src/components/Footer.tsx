@@ -19,7 +19,7 @@ export default function Footer() {
       <div className="container relative z-10">
         <div className="grid md:grid-cols-3 gap-12">
           <div>
-            <img src={zentiaLogo} alt="Zentia Technologies" className="h-[100px] w-auto mb-6" />
+            <img src={zentiaLogo} alt="Zentia Technologies" className="h-[200px] w-auto mb-6" />
             <p className="text-muted-foreground text-sm leading-relaxed max-w-xs">
               Making AI-powered efficiency the standard for African businesses.
             </p>
