@@ -66,8 +66,8 @@ export default function Footer() {
           <p className="text-muted-foreground text-xs">
             © {new Date().getFullYear()} Zentia Technologies. All rights reserved.
           </p>
-          <a href="mailto:zentiatechnologies@gmail.com" className="text-primary text-sm hover:underline">
-            zentiatechnologies@gmail.com
+          <a href="mailto:info@zentiaai.com" className="text-primary text-sm hover:underline">
+            info@zentiaai.com
           </a>
         </div>
       </div>
