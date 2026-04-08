@@ -27,9 +27,9 @@ const resources = [
 ];
 
 const groups = [
-  { label: "Guides", items: resources.filter(r => r.category === "Guide" || r.category === "Whitepaper" || r.category === "Case Study") },
-  { label: "Templates", items: resources.filter(r => r.category === "Template") },
-  { label: "Resources", items: resources.filter(r => r.category === "Video") },
+  { label: "Guides", items: resources.filter(r => r.category === "Guide" || r.category === "Whitepaper" || r.category === "Case Study"), folderLink: "" },
+  { label: "Templates", items: resources.filter(r => r.category === "Template"), folderLink: "https://drive.google.com/drive/folders/1a07QKUu2nOE5zQiTgtqZzlCun4LyYW5E?usp=drive_link" },
+  { label: "Resources", items: resources.filter(r => r.category === "Video"), folderLink: "https://drive.google.com/drive/folders/1rnTFgjRVMuqh46GK4ZBbn5nuNS3FvFxs?usp=drive_link" },
 ];
 
 const Resources = () => {
@@ -91,7 +91,17 @@ const Resources = () => {
                   ))}
                 </div>
               ) : (
-                <p className="text-muted-foreground text-lg py-8">Coming soon</p>
+                <div className="py-8">
+                  <p className="text-muted-foreground text-lg mb-4">Coming soon</p>
+                  {group.folderLink && (
+                    <Button variant="outline" className="gap-2" asChild>
+                      <a href={group.folderLink} target="_blank" rel="noopener noreferrer">
+                        <ExternalLink className="w-4 h-4" />
+                        Browse folder on Google Drive
+                      </a>
+                    </Button>
+                  )}
+                </div>
               )}
             </section>
           ))}
