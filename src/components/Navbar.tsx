@@ -8,7 +8,6 @@ const navLinks = [
   { label: "Services", href: "/#services" },
   { label: "About", href: "/about" },
   { label: "Resources", href: "/resources" },
-  { label: "FAQ", href: "/#faq" },
 ];
 
 export default function Navbar({ onGetInTouch }: { onGetInTouch?: () => void }) {
