@@ -9,14 +9,6 @@ import { Badge } from "@/components/ui/badge";
 
 const resources = [
   {
-    title: "AI Implementation Guide for African Businesses",
-    description: "A step-by-step guide to integrating AI solutions into your business operations.",
-    category: "Guide",
-    icon: BookOpen,
-    type: "Free",
-    link: "#",
-  },
-  {
     title: "Business Process Automation Checklist",
     description: "Identify which processes in your organisation are ready for AI-driven automation.",
     category: "Template",
@@ -25,36 +17,12 @@ const resources = [
     link: "https://drive.google.com/drive/folders/1a07QKUu2nOE5zQiTgtqZzlCun4LyYW5E?usp=drive_link",
   },
   {
-    title: "Introduction to AI for Decision Makers",
-    description: "A concise overview of AI capabilities and how they translate to business value.",
-    category: "Whitepaper",
-    icon: FileText,
-    type: "Free",
-    link: "#",
-  },
-  {
     title: "Data Readiness Assessment Template",
     description: "Evaluate whether your data infrastructure is prepared for AI integration.",
     category: "Template",
     icon: FileText,
     type: "Free",
     link: "https://drive.google.com/drive/folders/1a07QKUu2nOE5zQiTgtqZzlCun4LyYW5E?usp=drive_link",
-  },
-  {
-    title: "AI Use Cases Across African Industries",
-    description: "Real-world examples of AI driving results in agriculture, finance, healthcare and more.",
-    category: "Case Study",
-    icon: BookOpen,
-    type: "Free",
-    link: "#",
-  },
-  {
-    title: "Getting Started with Zentia — Video Walkthrough",
-    description: "Watch how Zentia helps businesses deploy AI solutions quickly and effectively.",
-    category: "Video",
-    icon: Video,
-    type: "Free",
-    link: "#",
   },
 ];
 
