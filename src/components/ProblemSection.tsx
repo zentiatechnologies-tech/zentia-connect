@@ -41,6 +41,9 @@ export default function ProblemSection() {
       className="relative grain-overlay"
       style={{ height: `${count * 80 + 160}vh` }}
     >
+      <Suspense fallback={null}>
+        <ParticleStarField />
+      </Suspense>
       {/* Sticky viewport */}
       <div className="sticky top-0 h-screen flex items-center overflow-hidden">
         <div className="container max-w-3xl relative z-10">
