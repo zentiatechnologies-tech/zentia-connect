@@ -537,6 +537,25 @@
     color: hsl(0 90% 78%);
   }
 
+  .hub-sample {
+    @apply overflow-hidden rounded-[1.75rem] bg-white;
+    border: 1px solid hsl(var(--zentia-navy) / 0.1);
+    box-shadow: 0 24px 60px -30px hsl(var(--zentia-navy) / 0.45);
+  }
+  .hub-sample li {
+    @apply flex items-center justify-between gap-4 px-6 py-4;
+  }
+  .hub-sample li + li {
+    border-top: 1px solid hsl(var(--zentia-navy) / 0.08);
+  }
+  .hub-sample-more {
+    background: hsl(var(--zentia-surface));
+  }
+  .hub-callout {
+    @apply flex flex-col gap-5 rounded-[1.75rem] p-7 text-white md:flex-row md:items-center md:justify-between md:p-9;
+    background: hsl(var(--zentia-navy));
+  }
+
   /* Footer */
   .site-footer {
     @apply py-16 text-white;

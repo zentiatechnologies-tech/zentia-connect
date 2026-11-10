@@ -1,4 +1,5 @@
-import { BookOpen, FileText, Video, Mail } from "lucide-react";
+import { Link } from "react-router-dom";
+import { ArrowRight, BookOpen, FileText, Video, Mail } from "lucide-react";
 import Layout from "@/components/Layout";
 import CTASection from "@/components/CTASection";
 import { usePageMeta } from "@/hooks/usePageMeta";
@@ -77,7 +78,21 @@ export default function Resources() {
       </section>
 
       <section className="section section-light">
-        <div className="wrap grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="wrap">
+          <div className="hub-callout">
+            <div>
+              <h2 className="h3">Looking for tools, not reading?</h2>
+              <p className="mt-2 text-white/80">
+                The Tool Hub shortlists AI tools for your line of work in four questions.
+              </p>
+            </div>
+            <Link to="/tools/" className="btn btn-primary shrink-0">
+              Open the Tool Hub
+              <ArrowRight size={18} aria-hidden="true" />
+            </Link>
+          </div>
+        </div>
+        <div className="wrap mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {resources.map((r) => (
             <article key={r.title} className="resource">
               <div className="flex items-center gap-3 text-slate">

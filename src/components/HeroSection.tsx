@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import PillStack from "@/components/PillStack";
 import { BookCallButton, WhatsAppButton } from "@/components/Actions";
 import heroPhoto from "@/assets/visuals/hero-relieved.jpg";
@@ -18,6 +19,12 @@ export default function HeroSection() {
             <BookCallButton long />
             <WhatsAppButton />
           </div>
+          <p className="mt-6 text-white/75">
+            Not ready to talk?{" "}
+            <Link to="/tools/" className="inline-link">
+              Find AI tools for your work in the free Tool Hub
+            </Link>
+          </p>
         </div>
 
         <div className="hero-visual">

@@ -4,6 +4,7 @@ import ProblemSection from "@/components/ProblemSection";
 import ServicesSection from "@/components/ServicesSection";
 import WorkshopSection from "@/components/WorkshopSection";
 import ProcessSection from "@/components/ProcessSection";
+import ToolHubSection from "@/components/ToolHubSection";
 import FAQSection from "@/components/FAQSection";
 import CTASection from "@/components/CTASection";
 import { usePageMeta } from "@/hooks/usePageMeta";
@@ -18,6 +19,7 @@ export default function Index() {
       <ServicesSection />
       <WorkshopSection />
       <ProcessSection />
+      <ToolHubSection />
       <FAQSection />
       <CTASection />
     </Layout>
