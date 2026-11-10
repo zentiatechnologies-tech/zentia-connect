@@ -1,72 +1,78 @@
-import zentiaLogo from "@/assets/zentia-logo-white.png";
+import { Link } from "react-router-dom";
+import logo from "@/assets/zentia-logo-white-trim.png";
+import { site, whatsappLink } from "@/config/site";
 
-const exploreLinks = [
+const explore = [
   { label: "Services", href: "/#services" },
-  { label: "About", href: "/about" },
-  { label: "FAQ", href: "/#faq" },
-];
-
-const socialLinks = [
-  { label: "LinkedIn", href: "https://www.linkedin.com/company/zentia-technologies/" },
-  { label: "Twitter/X", href: "https://x.com/ZentiaTech" },
-  { label: "Instagram", href: "https://www.instagram.com/zentiaai/" },
-  { label: "Facebook", href: "https://www.facebook.com/profile.php?id=61577446617141" },
+  { label: "Workshops", href: "/#workshops" },
+  { label: "How we work", href: "/#process" },
+  { label: "About", href: "/about/" },
+  { label: "Resources", href: "/resources/" },
 ];
 
 export default function Footer() {
   return (
-    <footer className="py-16 md:py-20 bg-card border-t border-border/40 relative grain-overlay">
-      <div className="container relative z-10">
-        <div className="grid md:grid-cols-3 gap-12">
-          <div>
-            <img src={zentiaLogo} alt="Zentia Technologies" className="h-[200px] w-auto mb-6" />
-          </div>
-
-          <div>
-            <h4 className="font-heading text-xs uppercase tracking-widest text-muted-foreground mb-5">
-              Explore
-            </h4>
-            <div className="space-y-3">
-              {exploreLinks.map((link) => (
-                <a
-                  key={link.href}
-                  href={link.href}
-                  className="block text-foreground hover:text-primary transition-colors duration-200 text-sm"
-                >
-                  {link.label}
-                </a>
-              ))}
-            </div>
-          </div>
-
-          <div>
-            <h4 className="font-heading text-xs uppercase tracking-widest text-muted-foreground mb-5">
-              Connect
-            </h4>
-            <div className="space-y-3">
-              {socialLinks.map((link) => (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block text-foreground hover:text-primary transition-colors duration-200 text-sm"
-                >
-                  {link.label}
-                </a>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        <div className="mt-16 pt-8 border-t border-border/40 flex flex-col sm:flex-row justify-between items-center gap-4">
-          <p className="text-muted-foreground text-xs">
-            © {new Date().getFullYear()} Zentia Technologies. All rights reserved.
+    <footer className="site-footer">
+      <div className="wrap grid gap-10 md:grid-cols-[minmax(0,1.4fr)_repeat(3,minmax(0,1fr))]">
+        <div>
+          <Link to="/" aria-label="Zentia Technologies home">
+            <img src={logo} alt="Zentia Technologies" width={880} height={255} className="h-10 w-auto" loading="lazy" />
+          </Link>
+          <p className="mt-5 max-w-xs text-white/70">
+            AI consulting, custom builds and training for African businesses. Based in Kampala, Uganda.
           </p>
-          <a href="mailto:info@zentiaai.com" className="text-primary text-sm hover:underline">
-            info@zentiaai.com
-          </a>
         </div>
+
+        <div>
+          <h2 className="footer-head">Explore</h2>
+          <ul className="space-y-2.5">
+            {explore.map((l) => (
+              <li key={l.href}>
+                <a href={l.href} className="footer-link">
+                  {l.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div>
+          <h2 className="footer-head">Contact</h2>
+          <ul className="space-y-2.5">
+            <li>
+              <a href={`mailto:${site.email}`} className="footer-link">
+                {site.email}
+              </a>
+            </li>
+            <li>
+              <a href={site.phoneHref} className="footer-link">
+                {site.phoneDisplay}
+              </a>
+            </li>
+            <li>
+              <a href={whatsappLink()} target="_blank" rel="noopener noreferrer" className="footer-link">
+                WhatsApp
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <h2 className="footer-head">Follow</h2>
+          <ul className="space-y-2.5">
+            {site.socials.map((s) => (
+              <li key={s.label}>
+                <a href={s.href} target="_blank" rel="noopener noreferrer" className="footer-link">
+                  {s.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+
+      <div className="wrap mt-12 border-t border-white/10 pt-6 text-sm text-white/60">
+        © {new Date().getFullYear()} Zentia Technologies. All rights reserved.
       </div>
     </footer>
   );

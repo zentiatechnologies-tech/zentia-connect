@@ -1,30 +1,25 @@
-import { useState } from "react";
-import Navbar from "@/components/Navbar";
+import Layout from "@/components/Layout";
 import HeroSection from "@/components/HeroSection";
 import ProblemSection from "@/components/ProblemSection";
 import ServicesSection from "@/components/ServicesSection";
-import StatsSection from "@/components/StatsSection";
-import ValuesSection from "@/components/ValuesSection";
+import WorkshopSection from "@/components/WorkshopSection";
+import ProcessSection from "@/components/ProcessSection";
 import FAQSection from "@/components/FAQSection";
-import Footer from "@/components/Footer";
-import ContactDialog from "@/components/ContactDialog";
+import CTASection from "@/components/CTASection";
+import { usePageMeta } from "@/hooks/usePageMeta";
+import { pages } from "@/config/seo";
 
-const Index = () => {
-  const [contactOpen, setContactOpen] = useState(false);
-
+export default function Index() {
+  usePageMeta(pages.home);
   return (
-    <div className="min-h-screen bg-background">
-      <Navbar onGetInTouch={() => setContactOpen(true)} />
-      <HeroSection onGetInTouch={() => setContactOpen(true)} />
+    <Layout>
+      <HeroSection />
       <ProblemSection />
-      <ServicesSection onGetInTouch={() => setContactOpen(true)} />
-      <StatsSection />
-      <ValuesSection />
+      <ServicesSection />
+      <WorkshopSection />
+      <ProcessSection />
       <FAQSection />
-      <Footer />
-      <ContactDialog open={contactOpen} onOpenChange={setContactOpen} />
-    </div>
+      <CTASection />
+    </Layout>
   );
-};
-
-export default Index;
+}

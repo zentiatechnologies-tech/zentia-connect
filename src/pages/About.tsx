@@ -1,182 +1,100 @@
-import { useState } from "react";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
-import ContactDialog from "@/components/ContactDialog";
-import { useScrollReveal } from "@/hooks/useScrollReveal";
-import { User } from "lucide-react";
-import dianaNakiwalaImg from "@/assets/diana-nakiwala.png";
-import kazooraAbayoImg from "@/assets/kazoora-abayo.jpg";
+import { Linkedin } from "lucide-react";
+import Layout from "@/components/Layout";
+import CTASection from "@/components/CTASection";
+import Reveal from "@/components/Reveal";
+import { usePageMeta } from "@/hooks/usePageMeta";
+import { pages } from "@/config/seo";
+import { founders } from "@/config/site";
+import glassTeal from "@/assets/visuals/glass-teal.jpg";
+import kazoora from "@/assets/kazoora-abayo-web.jpg";
+import diana from "@/assets/diana-nakiwala-web.jpg";
 
-const founders = [
-  {
-    name: "Kazoora Abayo",
-    role: "CEO & Co-Founder",
-    description:
-      "Creative strategist with a passion for unlocking business potential through smart automation. Kazoora brings deep local market understanding and a relentless focus on outcomes that matter.",
-    image: kazooraAbayoImg,
-  },
-  {
-    name: "Diana Nakiwala",
-    role: "CTO & Co-Founder",
-    description:
-      "Technical architect who turns complex AI systems into elegant, practical solutions. Diana ensures every deployment is robust, scalable, and built for real-world African business conditions.",
-    image: dianaNakiwalaImg,
-  },
-];
+const photos = { kazoora, diana };
 
 export default function About() {
-  const [contactOpen, setContactOpen] = useState(false);
-
+  usePageMeta(pages.about);
   return (
-    <div className="min-h-screen bg-background">
-      <Navbar onGetInTouch={() => setContactOpen(true)} />
-
-      {/* Hero */}
-      <section className="pt-32 pb-20 md:pt-40 md:pb-28 relative grain-overlay">
-        <div className="container max-w-4xl relative z-10">
-          <RevealBlock delay={0}>
-            <h1 className="font-heading font-bold text-4xl md:text-5xl lg:text-6xl text-foreground text-balance leading-[1.1]">
-              About Zentia
-            </h1>
-          </RevealBlock>
-          <RevealBlock delay={100}>
-            <p className="mt-6 text-muted-foreground text-lg md:text-xl leading-relaxed max-w-2xl text-pretty">
-              We exist to prove world-class automation can emerge from Kampala and transform the continent.
-            </p>
-          </RevealBlock>
+    <Layout>
+      <section className="hero hero-short">
+        <img src={glassTeal} alt="" aria-hidden="true" className="hero-bg" />
+        <div className="hero-shade" aria-hidden="true" />
+        <div className="wrap relative z-10 pb-16 pt-36 md:pb-20 md:pt-44">
+          <h1 className="display max-w-3xl">We help African businesses put AI to work.</h1>
+          <p className="lede mt-6 max-w-2xl">
+            Zentia is a Kampala-based team that finds where AI will pay off in your business, builds
+            it, and trains your people to run it.
+          </p>
         </div>
       </section>
 
-      {/* Vision & Mission */}
-      <section className="py-20 md:py-28 relative grain-overlay" style={{ background: "hsl(0 0% 97%)" }}>
-        <div className="container max-w-4xl relative z-10">
-          <div className="grid md:grid-cols-2 gap-12 md:gap-16">
-            <RevealBlock delay={0}>
-              <div>
-                <span className="font-heading text-xs uppercase tracking-[0.2em] text-primary font-semibold">
-                  Vision
-                </span>
-                <h2 className="font-heading font-bold text-2xl md:text-3xl text-zentia-navy mt-3 mb-5 text-balance leading-snug">
-                  AI efficiency as the standard, not the privilege
-                </h2>
-                <p className="text-zentia-gray leading-relaxed text-pretty">
-                  Make AI-powered efficiency the standard for African businesses, not the privilege. We exist to prove world-class automation can emerge from Kampala and transform the continent.
-                </p>
-              </div>
-            </RevealBlock>
-            <RevealBlock delay={120}>
-              <div>
-                <span className="font-heading text-xs uppercase tracking-[0.2em] text-primary font-semibold">
-                  Mission
-                </span>
-                <h2 className="font-heading font-bold text-2xl md:text-3xl text-zentia-navy mt-3 mb-5 text-balance leading-snug">
-                  Bridging Africa's AI knowledge gap
-                </h2>
-                <p className="text-zentia-gray leading-relaxed text-pretty">
-                  We bridge Africa's AI knowledge gap by empowering businesses with the right AI knowledge and tools to save time, cut costs, and scale profitably.
-                </p>
-              </div>
-            </RevealBlock>
-          </div>
+      <section className="section section-light">
+        <div className="wrap grid gap-10 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-16">
+          <Reveal>
+            <h2 className="h2">Why Zentia exists.</h2>
+          </Reveal>
+          <Reveal delay={80}>
+            <div className="space-y-5 text-lg leading-relaxed text-slate">
+              <p>
+                AI adoption in African businesses lags behind global markets, and not because of cost
+                or access. Business owners know the tools exist. What is missing is the expertise to
+                pick the right ones, put them in place and make them work for their own workflows.
+              </p>
+              <p>
+                Zentia exists to close that gap, turning AI from a distant buzzword into a practical
+                advantage for businesses that assumed it was reserved for enterprises with dedicated
+                tech teams.
+              </p>
+              <p>
+                Co-founded by a creative strategist and a technical architect, we speak business
+                outcomes first and technical architecture second. No jargon, no generic
+                recommendations, no "educate and depart" handoffs.
+              </p>
+              <p className="border-l-2 border-green pl-5 font-medium text-navy">
+                Our aim is to make AI-powered efficiency the standard for African businesses, not a
+                privilege, with work that is accessible to every business and held to global
+                standards.
+              </p>
+            </div>
+          </Reveal>
         </div>
       </section>
 
-      {/* Story */}
-      <section className="py-20 md:py-28 relative grain-overlay">
-        <div className="container max-w-3xl relative z-10">
-          <RevealBlock delay={0}>
-            <h2 className="font-heading font-bold text-2xl md:text-3xl text-foreground mb-8 text-balance">
-              Why Zentia exists
-            </h2>
-          </RevealBlock>
-          <RevealBlock delay={80}>
-            <p className="text-muted-foreground text-lg leading-relaxed mb-6 text-pretty">
-              AI adoption in African businesses lags behind global markets not because of cost or access, but because of a fundamental gap: business owners know automation exists, but lack the expertise to identify, implement, and optimize the right tools for their specific workflows. Zentia Technologies exists to bridge this execution gap, transforming AI from a distant buzzword into a practical competitive advantage for businesses that previously assumed automation was reserved for enterprises with dedicated tech teams.
-            </p>
-          </RevealBlock>
-          <RevealBlock delay={160}>
-            <p className="text-muted-foreground text-lg leading-relaxed text-pretty">
-              Co-founded by a creative strategist and technical architect, Zentia operates without the friction that kills most consulting engagements: no technical jargon, no generic recommendations, no "educate and depart" handoffs. We speak business outcomes first, technical architecture second, delivering end-to-end automation with deep local market understanding that foreign AI consultancies cannot replicate.
-            </p>
-          </RevealBlock>
-        </div>
-      </section>
-
-      {/* Team */}
-      <section className="py-20 md:py-28 relative grain-overlay" style={{ background: "hsl(0 0% 97%)" }}>
-        <div className="container max-w-4xl relative z-10">
-          <RevealBlock delay={0}>
-            <span className="font-heading text-xs uppercase tracking-[0.2em] text-primary font-semibold">
-              Leadership
-            </span>
-            <h2 className="font-heading font-bold text-2xl md:text-3xl text-zentia-navy mt-3 mb-12 text-balance">
-              The people behind Zentia
-            </h2>
-          </RevealBlock>
-
-          <div className="grid md:grid-cols-2 gap-10">
-            {founders.map((founder, i) => (
-              <FounderCard key={founder.name} founder={founder} index={i} />
+      <section className="section section-dark">
+        <div className="wrap">
+          <Reveal>
+            <h2 className="h2">The people behind Zentia.</h2>
+          </Reveal>
+          <div className="mt-12 grid gap-8 md:grid-cols-2">
+            {founders.map((f, i) => (
+              <Reveal key={f.name} delay={i * 100}>
+                <article className="founder">
+                  <img
+                    src={photos[f.photo]}
+                    alt={`${f.name}, ${f.role} of Zentia Technologies`}
+                    width={900}
+                    height={1125}
+                    loading="lazy"
+                    className="founder-photo"
+                  />
+                  <div>
+                    <h3 className="h3">{f.name}</h3>
+                    <p className="mt-1 font-medium text-green">{f.role}</p>
+                    <p className="mt-4 text-white/75">{f.bio}</p>
+                    {f.linkedin && (
+                      <a href={f.linkedin} target="_blank" rel="noopener noreferrer" className="text-link mt-5">
+                        <Linkedin size={18} aria-hidden="true" />
+                        {f.name.split(" ")[0]} on LinkedIn
+                      </a>
+                    )}
+                  </div>
+                </article>
+              </Reveal>
             ))}
           </div>
         </div>
       </section>
 
-      <Footer />
-      <ContactDialog open={contactOpen} onOpenChange={setContactOpen} />
-    </div>
-  );
-}
-
-function FounderCard({
-  founder,
-  index,
-}: {
-  founder: (typeof founders)[number];
-  index: number;
-}) {
-  const { ref, isVisible } = useScrollReveal(0.2);
-
-  return (
-    <div
-      ref={ref}
-      className={isVisible ? "animate-reveal-up" : "opacity-0"}
-      style={{ animationDelay: `${index * 120}ms` }}
-    >
-      <div className="rounded-xl border border-border/40 bg-white overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
-        {/* Photo placeholder */}
-        <div className="aspect-[4/5] bg-zentia-navy/5 flex items-center justify-center">
-        {founder.image ? (
-          <img src={founder.image} alt={founder.name} className="w-full h-full object-cover" />
-        ) : (
-          <User className="w-20 h-20 text-zentia-gray/30" strokeWidth={1} />
-        )}
-        </div>
-        <div className="p-6">
-          <h3 className="font-heading font-bold text-xl text-zentia-navy">
-            {founder.name}
-          </h3>
-          <p className="text-primary font-heading text-sm font-semibold mt-1 uppercase tracking-wide">
-            {founder.role}
-          </p>
-          <p className="text-zentia-gray text-sm leading-relaxed mt-3">
-            {founder.description}
-          </p>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function RevealBlock({ children, delay }: { children: React.ReactNode; delay: number }) {
-  const { ref, isVisible } = useScrollReveal(0.2);
-  return (
-    <div
-      ref={ref}
-      className={isVisible ? "animate-reveal-up" : "opacity-0"}
-      style={{ animationDelay: `${delay}ms` }}
-    >
-      {children}
-    </div>
+      <CTASection />
+    </Layout>
   );
 }

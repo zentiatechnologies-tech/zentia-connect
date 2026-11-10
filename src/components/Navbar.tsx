@@ -1,69 +1,58 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Button } from "@/components/ui/button";
-import zentiaLogo from "@/assets/zentia-logo-white.png";
 import { Menu, X } from "lucide-react";
+import logo from "@/assets/zentia-logo-white-trim.png";
+import { BookCallButton } from "@/components/Actions";
 
-const navLinks = [
+const links = [
   { label: "Services", href: "/#services" },
-  { label: "About", href: "/about" },
-  { label: "Resources", href: "/resources" },
+  { label: "How we work", href: "/#process" },
+  { label: "About", href: "/about/" },
+  { label: "Resources", href: "/resources/" },
 ];
 
-export default function Navbar({ onGetInTouch }: { onGetInTouch?: () => void }) {
+export default function Navbar() {
   const [open, setOpen] = useState(false);
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border/40">
-      <div className="container flex items-center justify-between h-16 md:h-20">
-        <Link to="/" className="flex items-center">
-          <img src={zentiaLogo} alt="Zentia Technologies" className="h-[150px] md:h-[180px] w-auto" width={180} height={180} fetchPriority="high" />
+    <header className="site-nav">
+      <div className="wrap flex h-[72px] items-center justify-between gap-6">
+        <Link to="/" className="shrink-0" aria-label="Zentia Technologies home">
+          <img src={logo} alt="Zentia Technologies" width={880} height={255} className="h-9 w-auto md:h-10" />
         </Link>
 
-        {/* Desktop */}
-        <div className="hidden md:flex items-center gap-8">
-          {navLinks.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              className="font-heading text-xs uppercase tracking-widest text-muted-foreground hover:text-primary transition-colors duration-200"
-            >
-              {link.label}
+        <nav className="hidden items-center gap-8 lg:flex" aria-label="Main">
+          {links.map((l) => (
+            <a key={l.href} href={l.href} className="nav-link">
+              {l.label}
             </a>
           ))}
-          <Button variant="hero" size="lg" onClick={onGetInTouch}>
-            Get in Touch
-          </Button>
-        </div>
+        </nav>
 
-        {/* Mobile toggle */}
-        <button
-          onClick={() => setOpen(!open)}
-          className="md:hidden text-foreground"
-          aria-label="Toggle menu"
-        >
-          {open ? <X size={24} /> : <Menu size={24} />}
-        </button>
+        <div className="flex items-center gap-3">
+          <BookCallButton className="btn-sm hidden sm:inline-flex" />
+          <button
+            type="button"
+            onClick={() => setOpen(!open)}
+            className="icon-btn lg:hidden"
+            aria-label={open ? "Close menu" : "Open menu"}
+            aria-expanded={open}
+          >
+            {open ? <X size={22} /> : <Menu size={22} />}
+          </button>
+        </div>
       </div>
 
-      {/* Mobile menu */}
       {open && (
-        <div className="md:hidden bg-background border-t border-border/40 pb-6 px-6">
-          {navLinks.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              onClick={() => setOpen(false)}
-              className="block py-3 font-heading text-xs uppercase tracking-widest text-muted-foreground hover:text-primary transition-colors"
-            >
-              {link.label}
+        <nav className="wrap border-t border-white/10 pb-6 pt-2 lg:hidden" aria-label="Mobile">
+          {links.map((l) => (
+            <a key={l.href} href={l.href} onClick={() => setOpen(false)} className="nav-link block py-3 text-base">
+              {l.label}
             </a>
           ))}
-          <Button variant="hero" size="lg" className="w-full mt-4" onClick={onGetInTouch}>
-            Get in Touch
-          </Button>
-        </div>
+          <BookCallButton className="mt-3 w-full sm:hidden" />
+        </nav>
       )}
-    </nav>
+    </header>
   );
 }

@@ -1,4 +1,3 @@
-import { useScrollReveal } from "@/hooks/useScrollReveal";
 import {
   Accordion,
   AccordionContent,
@@ -6,7 +5,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 
-const faqs = [
+export const faqs = [
   {
     q: "What makes Zentia different from other AI consultancies?",
     a: "We're Africa-focused and results-driven. We start by understanding how your teams actually work, then build AI solutions that fit your context, not one-size-fits-all tools from elsewhere. We're tool-agnostic but outcome-obsessed.",
@@ -30,52 +29,23 @@ const faqs = [
 ];
 
 export default function FAQSection() {
-  const { ref, isVisible } = useScrollReveal(0.2);
-
   return (
-    <section id="faq" className="py-24 md:py-32 relative grain-overlay" style={{ background: 'hsl(0 0% 97%)' }}>
-      <div className="container max-w-3xl relative z-10">
-        <div ref={ref}>
-          <h2
-            className={`font-heading font-bold text-3xl md:text-4xl text-zentia-navy mb-4 ${isVisible ? 'animate-reveal-up' : 'opacity-0'}`}
-          >
-            FAQs
-          </h2>
-          <p
-            className={`text-zentia-gray mb-12 ${isVisible ? 'animate-reveal-up' : 'opacity-0'}`}
-            style={{ animationDelay: '80ms' }}
-          >
-            You've got questions. We've got answers.
-          </p>
-        </div>
-
-        <Accordion type="single" collapsible className="space-y-2">
-          {faqs.map((faq, i) => (
-            <FAQItem key={i} faq={faq} index={i} />
+    <section id="faq" className="section section-light">
+      <div className="wrap grid gap-8 lg:grid-cols-[minmax(0,0.7fr)_minmax(0,1.3fr)] lg:gap-16">
+        <h2 className="h2">Questions we hear often.</h2>
+        <Accordion type="single" collapsible defaultValue="faq-0">
+          {faqs.map((f, i) => (
+            <AccordionItem key={f.q} value={`faq-${i}`} className="border-navy/15">
+              <AccordionTrigger className="py-5 text-left text-lg font-semibold text-navy hover:no-underline">
+                {f.q}
+              </AccordionTrigger>
+              <AccordionContent className="pb-5 text-base leading-relaxed text-slate">
+                {f.a}
+              </AccordionContent>
+            </AccordionItem>
           ))}
         </Accordion>
       </div>
     </section>
-  );
-}
-
-function FAQItem({ faq, index }: { faq: (typeof faqs)[number]; index: number }) {
-  const { ref, isVisible } = useScrollReveal(0.2);
-
-  return (
-    <div
-      ref={ref}
-      className={isVisible ? 'animate-reveal-up' : 'opacity-0'}
-      style={{ animationDelay: `${index * 60}ms` }}
-    >
-      <AccordionItem value={`faq-${index}`} className="border-border/40">
-        <AccordionTrigger className="font-heading font-semibold text-left text-zentia-navy hover:text-primary transition-colors py-5">
-          {faq.q}
-        </AccordionTrigger>
-        <AccordionContent className="text-zentia-gray leading-relaxed pb-5">
-          {faq.a}
-        </AccordionContent>
-      </AccordionItem>
-    </div>
   );
 }
