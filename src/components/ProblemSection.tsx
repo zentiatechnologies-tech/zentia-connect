@@ -1,113 +1,62 @@
-import { useEffect, useRef, useState } from "react";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 
-const statements = [
-  "You know AI is reshaping industries across the continent.",
-  "But finding the right talent, tools, and strategy feels overwhelming.",
-  "AI ideas stall. Teams aren't trained. ROI remains unclear.",
-  "You're not behind. You just need the right partner.",
-  "That's why we built Zentia.",
+const points = [
+  "AI ideas stall before they ship.",
+  "Teams aren't trained to use the tools.",
+  "ROI stays unclear.",
 ];
 
 export default function ProblemSection() {
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const [progress, setProgress] = useState(0);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const el = sectionRef.current;
-      if (!el) return;
-      const rect = el.getBoundingClientRect();
-      // Section is tall (e.g. 300vh). Progress 0→1 as we scroll through it.
-      // The sticky container sits in the middle of the viewport.
-      const scrollable = el.scrollHeight - window.innerHeight;
-      const scrolled = -rect.top;
-      setProgress(Math.max(0, Math.min(1, scrolled / scrollable)));
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  const count = statements.length;
+  const { ref, isVisible } = useScrollReveal(0.25);
 
   return (
-    <section
-      ref={sectionRef}
-      id="about"
-      className="relative grain-overlay"
-      style={{ height: `${count * 80 + 160}vh` }}
-    >
-      {/* Sticky viewport */}
-      <div className="sticky top-0 h-screen flex items-center overflow-hidden">
-        <div className="container max-w-3xl relative z-10">
-          <div className="relative" style={{ height: '260px' }}>
-            {statements.map((text, i) => {
-              const isLast = i === count - 1;
-              // Each line gets a slot in the progress
-              const lineCenter = (i + 0.5) / count;
-              const dist = progress - lineCenter;
-              // How far this line has scrolled past (positive = scrolled up past center)
-              const offsetY = dist * count * 80; // pixels of vertical shift
-              const absDist = Math.abs(dist * count);
-              // Stay at full opacity for a wide range, then fade sharply at edges
-              const fadeIn = Math.max(0, Math.min(1, 1 - Math.max(0, absDist - 0.3) * 3));
-              const opacity = dist > 0
-                ? isLast
-                  ? Math.max(0, 1 - Math.max(0, dist * count) * 4)
-                  : Math.max(0, 1 - Math.max(0, dist * count - 0.4) * 2.5)
-                : fadeIn;
+    <section id="about" className="relative grain-overlay py-24 md:py-32">
+      <div ref={ref} className="container max-w-4xl relative z-10 text-center">
+        <h2
+          className={`font-heading font-bold text-2xl md:text-4xl leading-tight text-balance text-foreground ${
+            isVisible ? "animate-reveal-up" : "opacity-0"
+          }`}
+        >
+          You know AI is reshaping industries across the continent. Finding the
+          right talent, tools and strategy is the hard part.
+        </h2>
 
-              return (
-                <h2
-                  key={i}
-                  className={`font-heading text-xl md:text-2xl leading-snug absolute left-0 right-0 ${isLast ? 'font-bold' : 'font-medium'}`}
-                  style={{
-                    top: '50%',
-                    transform: `translateY(calc(-50% + ${offsetY}px))`,
-                    opacity,
-                    color: isLast
-                      ? 'hsl(160 99% 39%)'
-                      : 'hsl(0 0% 100%)',
-                    filter: `blur(${Math.max(0, (1 - opacity) * 3)}px)`,
-                    willChange: 'transform, opacity',
-                  }}
-                >
-                  {text}
-                </h2>
-              );
-            })}
-          </div>
+        <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+          {points.map((point, i) => (
+            <div
+              key={point}
+              className={`rounded-lg border border-border/40 bg-card/40 p-6 text-left ${
+                isVisible ? "animate-reveal-up" : "opacity-0"
+              }`}
+              style={{ animationDelay: `${120 + i * 120}ms` }}
+            >
+              <div className="flex items-start gap-3">
+                <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
+                <p className="text-muted-foreground leading-relaxed">{point}</p>
+              </div>
+            </div>
+          ))}
         </div>
-      </div>
 
-      {/* Bottom content revealed after sticky scroll */}
-      <div className="absolute bottom-0 left-0 right-0 pb-24 md:pb-32">
-        <div className="container max-w-3xl relative z-10">
-          <div className="border-t border-border/40 pt-16">
-            <RevealBlock delay={0}>
-              <p className="text-primary font-heading font-bold text-2xl md:text-3xl text-balance">
-                AI that actually moves Africa forward.
-              </p>
-            </RevealBlock>
-            <RevealBlock delay={120}>
-              <p className="mt-6 text-muted-foreground text-lg text-pretty max-w-xl leading-relaxed">
-                Zentia identifies what's worth building, builds it with you, then trains your people to make it stick. From strategy to adoption, we're with you at every step.
-              </p>
-            </RevealBlock>
-          </div>
-        </div>
+        <p
+          className={`mt-12 font-heading font-bold text-xl md:text-2xl text-balance text-primary ${
+            isVisible ? "animate-reveal-up" : "opacity-0"
+          }`}
+          style={{ animationDelay: "480ms" }}
+        >
+          You're not behind. You just need the right partner.
+        </p>
+
+        <p
+          className={`mx-auto mt-6 max-w-2xl text-lg text-muted-foreground leading-relaxed text-pretty ${
+            isVisible ? "animate-reveal-up" : "opacity-0"
+          }`}
+          style={{ animationDelay: "600ms" }}
+        >
+          Zentia identifies what's worth building, builds it with you, then
+          trains your people to make it stick.
+        </p>
       </div>
     </section>
-  );
-}
-
-function RevealBlock({ children, delay }: { children: React.ReactNode; delay: number }) {
-  const { ref, isVisible } = useScrollReveal(0.3);
-  return (
-    <div ref={ref} className={isVisible ? 'animate-reveal-up' : 'opacity-0'} style={{ animationDelay: `${delay}ms` }}>
-      {children}
-    </div>
   );
 }
