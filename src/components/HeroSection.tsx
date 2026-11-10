@@ -1,6 +1,6 @@
 import PillStack from "@/components/PillStack";
 import { BookCallButton, WhatsAppButton } from "@/components/Actions";
-import LoopVideo from "@/components/LoopVideo";
+import heroPhoto from "@/assets/visuals/hero-relieved.jpg";
 
 export default function HeroSection() {
   return (
@@ -22,11 +22,13 @@ export default function HeroSection() {
 
         <div className="hero-visual">
           <div className="pill pill-media">
-            <LoopVideo
-              src="/media/hero-story.mp4"
-              poster="/media/hero-story.jpg"
-              label="A business owner at his desk smiles and gives a thumbs up"
-              className="h-full w-full object-cover"
+            <img
+              src={heroPhoto}
+              alt="A business owner leaning back at his desk, laughing with relief"
+              width={1600}
+              height={1066}
+              fetchPriority="high"
+              className="h-full w-full object-cover object-[30%_center]"
             />
           </div>
         </div>

@@ -1,5 +1,5 @@
-import { useMemo, useRef, useState } from "react";
-import { ArrowUpRight, Check, Search } from "lucide-react";
+import { useEffect, useMemo, useRef, useState, type FormEvent } from "react";
+import { ArrowUpRight, Check, Search, Star } from "lucide-react";
 import Layout from "@/components/Layout";
 import CTASection from "@/components/CTASection";
 import PillStack from "@/components/PillStack";
@@ -8,9 +8,17 @@ import { usePageMeta } from "@/hooks/usePageMeta";
 import { pages } from "@/config/seo";
 import { site } from "@/config/site";
 import {
+  backendEnabled,
+  loadHub,
+  rateTool,
+  requestConsult,
+  suggestTool,
+  type HubData,
+} from "@/lib/toolhub/api";
+import {
   bestPicks,
   budgets,
-  categories,
+  categoriesOf,
   comfortLevels,
   goals,
   levelLabel,
@@ -18,9 +26,11 @@ import {
   professions,
   profLabel,
   recommend,
+  scoreOf,
   searchTools,
-  tools,
+  tools as builtInTools,
   type Answers,
+  type Stats,
   type Tool,
 } from "@/lib/toolhub/model";
 
@@ -29,6 +39,25 @@ const ext = { target: "_blank", rel: "noopener noreferrer" } as const;
 
 export default function ToolHub() {
   usePageMeta(pages.tools);
+
+  // Live data. The page starts from the built-in catalog and, when the
+  // backend is connected, swaps in the live tools, ratings and nightly picks.
+  const [hub, setHub] = useState<HubData | null>(null);
+  useEffect(() => {
+    if (!backendEnabled) return;
+    loadHub()
+      .then((data) => {
+        setHub(data);
+        setRankStats(data.stats);
+      })
+      .catch(() => {});
+  }, []);
+  const tools = hub?.tools ?? builtInTools;
+  // `stats` updates the moment you rate; `rankStats` is fixed at page load so
+  // cards don't jump around while someone is rating them.
+  const stats: Stats | undefined = hub?.stats;
+  const [rankStats, setRankStats] = useState<Stats | undefined>();
+  const categories = useMemo(() => categoriesOf(tools), [tools]);
 
   // Questionnaire
   const [prof, setProf] = useState("");
@@ -44,7 +73,10 @@ export default function ToolHub() {
     );
 
   const ready = prof !== "" && picked.length > 0;
-  const shortlist = useMemo(() => (answers ? recommend(answers) : []), [answers]);
+  const shortlist = useMemo(
+    () => (answers ? recommend(answers, 6, tools, rankStats) : []),
+    [answers, tools, rankStats],
+  );
 
   const build = () => {
     setAnswers({ prof, goals: picked, comfort, budget });
@@ -55,14 +87,22 @@ export default function ToolHub() {
 
   // Best picks
   const [board, setBoard] = useState("retail");
-  const picks = useMemo(() => bestPicks(board), [board]);
+  const picks = useMemo(() => {
+    const nightly = (hub?.picks[board] ?? [])
+      .map((id) => tools.find((t) => t.id === id))
+      .filter((t): t is Tool => Boolean(t));
+    return nightly.length ? nightly : bestPicks(board, 5, tools, rankStats);
+  }, [board, hub?.picks, tools, rankStats]);
 
   // Directory
   const [query, setQuery] = useState("");
   const [cat, setCat] = useState("");
   const [price, setPrice] = useState("");
   const [showAll, setShowAll] = useState(false);
-  const found = useMemo(() => searchTools(query, cat, price), [query, cat, price]);
+  const found = useMemo(
+    () => searchTools(query, cat, price, tools, rankStats),
+    [query, cat, price, tools, rankStats],
+  );
   const filtering = query !== "" || cat !== "" || price !== "";
   const visible = showAll || filtering ? found : found.slice(0, 9);
 
@@ -71,6 +111,31 @@ export default function ToolHub() {
         .map((p) => p.tool.name)
         .join(", ")}. I'd like help setting these up.`
     : undefined;
+
+  // Ratings: update the screen straight away, then save.
+  const rate = (tool: Tool, stars: number) => {
+    const ratedAs = prof || null;
+    setHub((cur) => {
+      const base: HubData = cur ?? { tools: null, stats: {}, picks: {}, mine: {} };
+      const before = base.mine[tool.id];
+      const old = base.stats[tool.id] ?? { votes: 0, total: 0, byProf: {} };
+      const next = {
+        ...old,
+        votes: old.votes + (before ? 0 : 1),
+        total: old.total + stars - (before ?? 0),
+      };
+      return {
+        ...base,
+        mine: { ...base.mine, [tool.id]: stars },
+        stats: { ...base.stats, [tool.id]: next },
+      };
+    });
+    rateTool(tool.id, stars, ratedAs).catch(() => {});
+  };
+  const ratingProps = (t: Tool) =>
+    backendEnabled
+      ? { mine: hub?.mine[t.id], votes: stats?.[t.id]?.votes ?? 0, onRate: (n: number) => rate(t, n) }
+      : undefined;
 
   return (
     <Layout>
@@ -195,12 +260,23 @@ export default function ToolHub() {
                   <>
                     <div className="mt-6 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
                       {shortlist.map((p) => (
-                        <ToolCard key={p.tool.id} tool={p.tool} prof={answers.prof} reasons={p.reasons} />
+                        <ToolCard
+                          key={p.tool.id}
+                          tool={p.tool}
+                          score={scoreOf(p.tool, stats, answers.prof)}
+                          prof={answers.prof}
+                          reasons={p.reasons}
+                          rating={ratingProps(p.tool)}
+                        />
                       ))}
                     </div>
-                    <div className="mt-8 flex flex-wrap items-center gap-4">
-                      <WhatsAppButton onLight label="Get help setting these up" message={toolkitMessage} />
-                    </div>
+                    {backendEnabled ? (
+                      <ConsultForm prof={answers.prof} toolkit={shortlist.map((p) => p.tool.id)} />
+                    ) : (
+                      <div className="mt-8 flex flex-wrap items-center gap-4">
+                        <WhatsAppButton onLight label="Get help setting these up" message={toolkitMessage} />
+                      </div>
+                    )}
                   </>
                 )}
               </div>
@@ -237,7 +313,7 @@ export default function ToolHub() {
                   <p className="mt-1 text-white/75">{t.uses[board] ?? t.blurb}</p>
                 </div>
                 <div className="pick-meta">
-                  <span className="score">{t.editor.toFixed(1)}</span>
+                  <span className="score">{scoreOf(t, stats, board).toFixed(1)}</span>
                   <span className="text-white/60">{priceLabel[t.price]}</span>
                 </div>
                 <a href={t.url} className="text-link shrink-0" {...ext}>
@@ -248,8 +324,8 @@ export default function ToolHub() {
             ))}
           </ol>
           <p className="mt-6 text-white/60">
-            Scores are Zentia's own vetting score out of 5. Tools built for a profession rank ahead
-            of general-purpose ones on that profession's board.
+            Scores start from Zentia's own vetting score out of 5{backendEnabled ? " and move with visitor ratings; ratings from people in the same profession count double" : ""}. Tools built for a
+            profession rank ahead of general-purpose ones on that profession's board.
           </p>
         </div>
       </section>
@@ -296,7 +372,7 @@ export default function ToolHub() {
 
           <div className="mt-6 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
             {visible.map((t) => (
-              <ToolCard key={t.id} tool={t} />
+              <ToolCard key={t.id} tool={t} score={scoreOf(t, stats)} rating={ratingProps(t)} />
             ))}
           </div>
 
@@ -318,6 +394,9 @@ export default function ToolHub() {
               catalog.
             </p>
           </div>
+          {backendEnabled ? (
+            <SuggestForm prof={prof || null} />
+          ) : (
           <div className="btn-row lg:items-center lg:justify-end">
             <a
               className="btn btn-primary"
@@ -332,6 +411,7 @@ export default function ToolHub() {
               message="Hi Zentia, I'd like to suggest a tool for the Tool Hub: "
             />
           </div>
+          )}
         </div>
       </section>
 
@@ -340,7 +420,21 @@ export default function ToolHub() {
   );
 }
 
-function ToolCard({ tool: t, prof, reasons }: { tool: Tool; prof?: string; reasons?: string[] }) {
+type RatingProps = { mine?: number; votes: number; onRate: (stars: number) => void };
+
+function ToolCard({
+  tool: t,
+  score,
+  prof,
+  reasons,
+  rating,
+}: {
+  tool: Tool;
+  score: number;
+  prof?: string;
+  reasons?: string[];
+  rating?: RatingProps;
+}) {
   const use = prof ? t.uses[prof] : undefined;
   const video = t.yt
     ? `https://www.youtube.com/results?search_query=${encodeURIComponent(t.yt)}`
@@ -356,7 +450,7 @@ function ToolCard({ tool: t, prof, reasons }: { tool: Tool; prof?: string; reaso
           </p>
         </div>
         <span className="score score-light" title="Zentia score out of 5">
-          {t.editor.toFixed(1)}
+          {score.toFixed(1)}
         </span>
       </div>
 
@@ -400,10 +494,159 @@ function ToolCard({ tool: t, prof, reasons }: { tool: Tool; prof?: string; reaso
         </p>
       </details>
 
+      {rating && (
+        <div className="rate">
+          <span id={`rate-${t.id}`}>{rating.mine ? "Your rating" : "Rate it"}</span>
+          <div role="group" aria-labelledby={`rate-${t.id}`} className="flex">
+            {[1, 2, 3, 4, 5].map((n) => (
+              <button
+                key={n}
+                type="button"
+                className="star"
+                aria-label={`${n} star${n > 1 ? "s" : ""}`}
+                aria-pressed={rating.mine === n}
+                data-on={(rating.mine ?? 0) >= n}
+                onClick={() => rating.onRate(n)}
+              >
+                <Star size={20} aria-hidden="true" />
+              </button>
+            ))}
+          </div>
+          {rating.votes > 0 && (
+            <span className="ml-auto">
+              {rating.votes} rating{rating.votes > 1 ? "s" : ""}
+            </span>
+          )}
+        </div>
+      )}
+
       <a href={t.url} className="btn btn-outline-dark btn-sm mt-5 self-start" {...ext}>
         Visit {t.name}
         <ArrowUpRight size={16} aria-hidden="true" />
       </a>
     </article>
+  );
+}
+
+type FormState = "idle" | "sending" | "sent" | "error";
+
+function ConsultForm({ prof, toolkit }: { prof: string; toolkit: string[] }) {
+  const [state, setState] = useState<FormState>("idle");
+
+  const submit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const f = new FormData(e.currentTarget);
+    setState("sending");
+    try {
+      await requestConsult({
+        name: String(f.get("name")),
+        contact: String(f.get("contact")),
+        message: String(f.get("message") ?? ""),
+        prof,
+        toolkit,
+      });
+      setState("sent");
+    } catch {
+      setState("error");
+    }
+  };
+
+  if (state === "sent") {
+    return (
+      <p className="form-done" role="status">
+        Thank you. We have your request and will be in touch within two working days.
+      </p>
+    );
+  }
+
+  return (
+    <form className="hub-form mt-10" onSubmit={submit}>
+      <h3 className="h3">Want help setting these up?</h3>
+      <p className="mt-2 text-slate">
+        Leave your details and we'll contact you about this shortlist. Free, no obligation.
+      </p>
+      <div className="mt-5 grid gap-4 md:grid-cols-2">
+        <label className="form-field">
+          <span>Your name</span>
+          <input name="name" required minLength={2} maxLength={120} autoComplete="name" />
+        </label>
+        <label className="form-field">
+          <span>Phone, WhatsApp or email</span>
+          <input name="contact" required minLength={5} maxLength={160} />
+        </label>
+        <label className="form-field md:col-span-2">
+          <span>Anything we should know? (optional)</span>
+          <textarea name="message" rows={3} maxLength={1500} />
+        </label>
+      </div>
+      <div className="mt-5 flex flex-wrap items-center gap-4">
+        <button type="submit" className="btn btn-primary" disabled={state === "sending"}>
+          {state === "sending" ? "Sending" : "Request a consult"}
+        </button>
+        {state === "error" && (
+          <p className="form-error" role="alert">
+            That didn't send. Please try again, or email {site.email}.
+          </p>
+        )}
+      </div>
+    </form>
+  );
+}
+
+function SuggestForm({ prof }: { prof: string | null }) {
+  const [state, setState] = useState<FormState>("idle");
+
+  const submit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const f = new FormData(e.currentTarget);
+    setState("sending");
+    try {
+      await suggestTool({
+        tool_name: String(f.get("tool_name")),
+        url: String(f.get("url") ?? ""),
+        note: String(f.get("note") ?? ""),
+        prof,
+      });
+      setState("sent");
+    } catch {
+      setState("error");
+    }
+  };
+
+  if (state === "sent") {
+    return (
+      <p className="form-done form-done-dark" role="status">
+        Thank you. We'll test it and add it if it earns a place.
+      </p>
+    );
+  }
+
+  return (
+    <form className="hub-form hub-form-dark" onSubmit={submit}>
+      <div className="grid gap-4">
+        <label className="form-field">
+          <span>Tool name</span>
+          <input name="tool_name" required minLength={2} maxLength={120} />
+        </label>
+        <label className="form-field">
+          <span>Website (optional)</span>
+          <input name="url" type="url" maxLength={300} placeholder="https://" />
+        </label>
+        <label className="form-field">
+          <span>What do you use it for? (optional)</span>
+          <textarea name="note" rows={3} maxLength={1000} />
+        </label>
+      </div>
+      <div className="mt-5 flex flex-wrap items-center gap-4">
+        <button type="submit" className="btn btn-primary" disabled={state === "sending"}>
+          {state === "sending" ? "Sending" : "Suggest this tool"}
+        </button>
+        {state === "error" && (
+          <p className="form-error" role="alert">
+            That didn't send. Please try again, or email {site.email}.
+          </p>
+        )}
+      </div>
+    </form>
   );
 }

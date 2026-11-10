@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { bestPicks, recommend, searchTools, tools } from "./model";
+import { bestPicks, recommend, scoreOf, searchTools, tools, type Stats } from "./model";
 
 describe("tool hub model", () => {
   it("loads the full catalog with unique ids", () => {
@@ -24,6 +24,17 @@ describe("tool hub model", () => {
     const farm = bestPicks("agri").map((t) => t.id);
     expect(farm).toContain("plantvillage");
     expect(bestPicks("education").map((t) => t.id)).toContain("magicschool");
+  });
+
+  it("lets community ratings move a score, same profession counting double", () => {
+    const canva = tools.find((t) => t.id === "canva")!;
+    const stats: Stats = {
+      canva: { votes: 4, total: 8, byProf: { retail: { votes: 2, total: 2 } } },
+    };
+    expect(scoreOf(canva)).toBe(canva.editor);
+    const general = scoreOf(canva, stats);
+    expect(general).toBeLessThan(canva.editor);
+    expect(scoreOf(canva, stats, "retail")).toBeLessThan(general);
   });
 
   it("searches by name and filters by category", () => {

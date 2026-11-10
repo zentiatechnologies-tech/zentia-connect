@@ -80,14 +80,30 @@ export const levelLabel = ["", "Beginner friendly", "Some setup", "Technical"];
 export const profLabel = (id: string) => professions.find((p) => p.id === id)?.label ?? id;
 export const goalLabel = (id: string) => goals.find((g) => g.id === id)?.label ?? id;
 
+/** Community rating totals for one tool: overall and per profession. */
+export type ToolStats = { votes: number; total: number; byProf: Record<string, { votes: number; total: number }> };
+export type Stats = Record<string, ToolStats>;
+
 const isGeneral = (t: Tool) => t.prof.includes("all");
 export const fitsProfession = (t: Tool, prof: string) => isGeneral(t) || t.prof.includes(prof);
 
-/** Best picks for a profession: the editor score, +0.2 for tools built for
+/** A tool's score out of 5. It starts from Zentia's editor score and is pulled
+ *  up or down by community ratings as they come in. Ratings from people in the
+ *  same profession count double. */
+export function scoreOf(t: Tool, stats?: Stats, prof?: string): number {
+  const s = stats?.[t.id];
+  if (!s || s.votes === 0) return t.editor;
+  const same = (prof && s.byProf[prof]) || { votes: 0, total: 0 };
+  const votes = s.votes + same.votes;
+  const total = s.total + same.total;
+  return (t.editor * 5 + total) / (5 + votes);
+}
+
+/** Best picks for a profession: the score above, +0.2 for tools built for
  *  that profession and -0.2 for general-purpose ones, so each board differs. */
-export function bestPicks(prof: string, count = 5): Tool[] {
-  const score = (t: Tool) => t.editor + (isGeneral(t) ? -0.2 : 0.2);
-  return tools
+export function bestPicks(prof: string, count = 5, list: Tool[] = tools, stats?: Stats): Tool[] {
+  const score = (t: Tool) => scoreOf(t, stats, prof) + (isGeneral(t) ? -0.2 : 0.2);
+  return list
     .filter((t) => fitsProfession(t, prof))
     .sort(
       (a, b) =>
@@ -112,14 +128,14 @@ export type Pick = { tool: Tool; reasons: string[] };
 /** A personal shortlist. Balances goals, profession, comfort with tech and
  *  budget, and makes sure every chosen goal is covered by at least one tool
  *  whenever the catalog has one that fits. */
-export function recommend(a: Answers, count = 6): Pick[] {
-  const allowed = tools.filter(
+export function recommend(a: Answers, count = 6, list: Tool[] = tools, stats?: Stats): Pick[] {
+  const allowed = list.filter(
     (t) => t.level <= a.comfort && (a.budget === "any" || t.price !== "paid"),
   );
 
   const score = (t: Tool) => {
     const matched = t.goals.filter((g) => a.goals.includes(g)).length;
-    let s = t.editor + Math.min(matched, 2);
+    let s = scoreOf(t, stats, a.prof) + Math.min(matched, 2);
     if (t.prof.includes(a.prof)) s += 0.6;
     else if (isGeneral(t)) s += 0.2;
     else s -= 0.8;
@@ -156,9 +172,15 @@ export function recommend(a: Answers, count = 6): Pick[] {
     });
 }
 
-export function searchTools(query: string, cat: string, price: string): Tool[] {
+export function searchTools(
+  query: string,
+  cat: string,
+  price: string,
+  list: Tool[] = tools,
+  stats?: Stats,
+): Tool[] {
   const q = query.trim().toLowerCase();
-  return tools
+  return list
     .filter((t) => !cat || t.cat === cat)
     .filter((t) => !price || t.price === price)
     .filter(
@@ -166,7 +188,7 @@ export function searchTools(query: string, cat: string, price: string): Tool[] {
         !q ||
         [t.name, t.maker, t.cat, t.blurb, ...t.goals].some((s) => s.toLowerCase().includes(q)),
     )
-    .sort((a, b) => b.editor - a.editor || a.name.localeCompare(b.name));
+    .sort((a, b) => scoreOf(b, stats) - scoreOf(a, stats) || a.name.localeCompare(b.name));
 }
 
-export const categories = [...new Set(tools.map((t) => t.cat))].sort();
+export const categoriesOf = (list: Tool[]) => [...new Set(list.map((t) => t.cat))].sort();
