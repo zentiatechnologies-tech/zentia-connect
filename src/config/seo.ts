@@ -21,6 +21,12 @@ export const pages: Record<string, PageMeta> = {
     description:
       "Guides, checklists and templates from Zentia Technologies to help your business get started with AI and automation.",
   },
+  tools: {
+    path: "/tools/",
+    title: "AI Tool Hub: 46 vetted AI tools for African businesses | Zentia",
+    description:
+      "Answer four questions and get a shortlist of AI tools that fit your work, budget and comfort with tech. 46 tools vetted by Zentia. Free, no sign-up.",
+  },
   notFound: {
     path: "/404.html",
     title: "Page not found | Zentia Technologies",

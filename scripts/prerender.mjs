@@ -39,6 +39,7 @@ const routes = [
   { meta: pages.home, url: "/", file: "index.html", schema: [orgSchema, faqSchema] },
   { meta: pages.about, url: "/about", file: "about/index.html", schema: [orgSchema] },
   { meta: pages.resources, url: "/resources", file: "resources/index.html", schema: [orgSchema] },
+  { meta: pages.tools, url: "/tools", file: "tools/index.html", schema: [orgSchema] },
   { meta: pages.notFound, url: "/404", file: "404.html", schema: [], noindex: true },
 ];
 

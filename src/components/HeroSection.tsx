@@ -25,7 +25,7 @@ export default function HeroSection() {
             <LoopVideo
               src="/media/hero-story.mp4"
               poster="/media/hero-story.jpg"
-              label="A business owner goes from frustrated at his desk to relieved after seeing an AI tool at work"
+              label="A business owner at his desk smiles and gives a thumbs up"
               className="h-full w-full object-cover"
             />
           </div>

@@ -7,6 +7,7 @@ import { BookCallButton } from "@/components/Actions";
 const links = [
   { label: "Services", href: "/#services" },
   { label: "How we work", href: "/#process" },
+  { label: "Tool Hub", href: "/tools/" },
   { label: "About", href: "/about/" },
   { label: "Resources", href: "/resources/" },
 ];
