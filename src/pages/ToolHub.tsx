@@ -20,6 +20,7 @@ import {
   budgets,
   categoriesOf,
   comfortLevels,
+  fitsProfession,
   goals,
   levelLabel,
   priceLabel,
@@ -98,12 +99,16 @@ export default function ToolHub() {
   const [query, setQuery] = useState("");
   const [cat, setCat] = useState("");
   const [price, setPrice] = useState("");
+  const [forProf, setForProf] = useState("");
   const [showAll, setShowAll] = useState(false);
   const found = useMemo(
-    () => searchTools(query, cat, price, tools, rankStats),
-    [query, cat, price, tools, rankStats],
+    () =>
+      searchTools(query, cat, price, tools, rankStats).filter(
+        (t) => !forProf || fitsProfession(t, forProf),
+      ),
+    [query, cat, price, forProf, tools, rankStats],
   );
-  const filtering = query !== "" || cat !== "" || price !== "";
+  const filtering = query !== "" || cat !== "" || price !== "" || forProf !== "";
   const visible = showAll || filtering ? found : found.slice(0, 9);
 
   const toolkitMessage = answers
@@ -270,6 +275,7 @@ export default function ToolHub() {
                         />
                       ))}
                     </div>
+                    <LearningPlan picks={shortlist.map((p) => p.tool)} />
                     {backendEnabled ? (
                       <ConsultForm prof={answers.prof} toolkit={shortlist.map((p) => p.tool.id)} />
                     ) : (
@@ -335,7 +341,7 @@ export default function ToolHub() {
         <div className="wrap">
           <h2 className="h2">All {tools.length} tools.</h2>
 
-          <div className="mt-8 grid gap-3 md:grid-cols-[minmax(0,1fr)_220px_200px]">
+          <div className="mt-8 grid gap-3 md:grid-cols-2 lg:grid-cols-[minmax(0,1fr)_200px_210px_190px]">
             <label className="field">
               <span className="sr-only">Search tools</span>
               <Search size={18} aria-hidden="true" />
@@ -352,6 +358,17 @@ export default function ToolHub() {
                 <option value="">All categories</option>
                 {categories.map((c) => (
                   <option key={c}>{c}</option>
+                ))}
+              </select>
+            </label>
+            <label className="field">
+              <span className="sr-only">Profession</span>
+              <select value={forProf} onChange={(e) => setForProf(e.target.value)}>
+                <option value="">All professions</option>
+                {professions.map((p) => (
+                  <option key={p.id} value={p.id}>
+                    {p.label}
+                  </option>
                 ))}
               </select>
             </label>
@@ -375,6 +392,11 @@ export default function ToolHub() {
               <ToolCard key={t.id} tool={t} score={scoreOf(t, stats)} rating={ratingProps(t)} />
             ))}
           </div>
+
+          <p className="mt-8 text-slate">
+            Tools are vetted by Zentia{backendEnabled ? " and rated by the community" : ""}. Always check pricing and data
+            rules before you commit.
+          </p>
 
           {!filtering && !showAll && (
             <button type="button" className="btn btn-outline-dark mt-8" onClick={() => setShowAll(true)}>
@@ -470,6 +492,7 @@ function ToolCard({
       <p className="tool-tags">
         <span>{priceLabel[t.price]}</span>
         <span>{levelLabel[t.level]}</span>
+        {t.trusted && <span className="tag-trusted">Zentia trusted</span>}
       </p>
 
       <details className="tool-more">
@@ -525,6 +548,74 @@ function ToolCard({
         <ArrowUpRight size={16} aria-hidden="true" />
       </a>
     </article>
+  );
+}
+
+const PLAN_KEY = "zentia-toolhub-plan";
+
+/** Three weeks, two tools a week, then a fourth week to join them up.
+ *  Ticks are remembered on this device only. */
+function LearningPlan({ picks }: { picks: Tool[] }) {
+  const [done, setDone] = useState<Record<string, boolean>>({});
+
+  useEffect(() => {
+    try {
+      setDone(JSON.parse(window.localStorage.getItem(PLAN_KEY) ?? "{}"));
+    } catch {
+      /* storage unavailable: the plan still works, it just won't be remembered */
+    }
+  }, []);
+
+  const toggle = (id: string) =>
+    setDone((cur) => {
+      const next = { ...cur, [id]: !cur[id] };
+      try {
+        window.localStorage.setItem(PLAN_KEY, JSON.stringify(next));
+      } catch {
+        /* ignore */
+      }
+      return next;
+    });
+
+  const weeks = [picks.slice(0, 2), picks.slice(2, 4), picks.slice(4, 6)].filter((w) => w.length);
+  const finished = picks.filter((t) => done[t.id]).length;
+
+  return (
+    <div className="plan">
+      <div className="flex flex-wrap items-baseline justify-between gap-3">
+        <h3 className="h3">Your {weeks.length}-week learning plan</h3>
+        <p className="text-slate" aria-live="polite">
+          {finished} of {picks.length} tools started
+        </p>
+      </div>
+      <ol className="mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+        {weeks.map((week, i) => (
+          <li key={i} className="plan-week">
+            <h4>Week {i + 1}</h4>
+            {week.map((t) => (
+              <label key={t.id} className="plan-item">
+                <input type="checkbox" checked={Boolean(done[t.id])} onChange={() => toggle(t.id)} />
+                <span>
+                  <strong>{t.name}</strong>
+                  {t.steps[0]}
+                </span>
+              </label>
+            ))}
+          </li>
+        ))}
+        <li className="plan-week plan-week-last">
+          <h4>Week {weeks.length + 1}</h4>
+          <label className="plan-item">
+            <input type="checkbox" checked={Boolean(done._workflow)} onChange={() => toggle("_workflow")} />
+            <span>
+              <strong>Connect them</strong>
+              Pick one task you do every week and run it through your new tools from start to
+              finish.
+            </span>
+          </label>
+        </li>
+      </ol>
+    </div>
   );
 }
 

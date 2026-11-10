@@ -458,6 +458,36 @@
     outline-offset: 2px;
   }
 
+  .tool-tags .tag-trusted {
+    background: hsl(var(--zentia-green) / 0.18);
+    color: hsl(160 99% 20%);
+  }
+  .plan {
+    @apply mt-12 rounded-[1.75rem] bg-white p-6 md:p-8;
+    border: 1px solid hsl(var(--zentia-navy) / 0.1);
+  }
+  .plan-week {
+    @apply rounded-2xl p-5;
+    background: hsl(var(--zentia-surface));
+  }
+  .plan-week-last {
+    background: hsl(var(--zentia-green) / 0.14);
+  }
+  .plan-week h4 {
+    @apply mb-3 font-heading text-base font-bold;
+  }
+  .plan-item {
+    @apply flex cursor-pointer gap-3 py-2;
+    color: hsl(var(--zentia-slate));
+  }
+  .plan-item input {
+    @apply mt-1 h-5 w-5 shrink-0;
+    accent-color: hsl(160 99% 30%);
+  }
+  .plan-item strong {
+    @apply block;
+    color: hsl(var(--zentia-navy));
+  }
   .rate {
     @apply mt-4 flex items-center gap-3 border-t pt-3 text-[0.95rem];
     border-color: hsl(var(--zentia-navy) / 0.1);
