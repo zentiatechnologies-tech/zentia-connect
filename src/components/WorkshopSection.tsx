@@ -1,4 +1,4 @@
-import lead from "@/assets/visuals/lead-portrait.jpg";
+import team from "@/assets/visuals/workshop-team.jpg";
 import { WhatsAppButton } from "@/components/Actions";
 import Reveal from "@/components/Reveal";
 
@@ -23,12 +23,12 @@ export default function WorkshopSection() {
         </Reveal>
         <Reveal delay={100}>
           <img
-            src={lead}
-            alt="A team lead standing with arms folded in a bright office, smiling"
-            width={1400}
-            height={739}
+            src={team}
+            alt="A team of five colleagues standing together in a bright office, smiling"
+            width={1600}
+            height={893}
             loading="lazy"
-            className="pill-wide aspect-[16/9] w-full object-cover"
+            className="photo-frame aspect-[16/9] w-full object-cover"
           />
         </Reveal>
       </div>
