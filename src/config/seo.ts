@@ -5,7 +5,7 @@ export type PageMeta = { path: string; title: string; description: string };
 export const pages: Record<string, PageMeta> = {
   home: {
     path: "/",
-    title: "Zentia Technologies | AI consulting, builds and training in Kampala",
+    title: "Zentia | AI consulting, builds and training in Kampala",
     description:
       "Zentia helps African businesses put AI to work: AI readiness audits, strategy, custom builds and team training. Book a free 20-minute AI readiness call.",
   },

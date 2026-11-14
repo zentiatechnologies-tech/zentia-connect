@@ -42,3 +42,13 @@ jobs:
             **/.git*
             **/.git*/**
             **/node_modules/**
+
+      # Checks each page's SEO basics and logs this update in the dashboard.
+      # Needs the DASHBOARD_INGEST_TOKEN repository secret; never fails the deploy.
+      - name: Check pages and log the update
+        if: success()
+        continue-on-error: true
+        env:
+          DASHBOARD_INGEST_TOKEN: ${{ secrets.DASHBOARD_INGEST_TOKEN }}
+          COMMIT_MESSAGE: ${{ github.event.head_commit.message || 'Manual website deploy' }}
+        run: node scripts/audit.mjs --report
