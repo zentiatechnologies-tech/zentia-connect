@@ -1,0 +1,15 @@
+# Zentia dashboard: private, never indexed, always https.
+<IfModule mod_headers.c>
+  Header set X-Robots-Tag "noindex, nofollow"
+  Header set X-Frame-Options "DENY"
+  Header set Referrer-Policy "no-referrer"
+  <FilesMatch "\.html$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
+</IfModule>
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{HTTPS} off
+  RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [L,R=301]
+</IfModule>
+ErrorDocument 404 /index.html

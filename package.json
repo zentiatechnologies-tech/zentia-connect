@@ -10,7 +10,10 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "dev:dashboard": "vite --config vite.dashboard.config.ts",
+    "build:dashboard": "vite build --config vite.dashboard.config.ts",
+    "preview:dashboard": "vite preview --config vite.dashboard.config.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",

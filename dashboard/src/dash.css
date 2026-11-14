@@ -1,0 +1,228 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --zentia-navy: 207 55% 17%;
+    --zentia-navy-deep: 207 58% 11%;
+    --zentia-surface: 205 60% 97%;
+    --zentia-slate: 210 18% 34%;
+    --zentia-green: 160 99% 39%;
+    --zentia-green-ink: 160 99% 24%;
+    --zentia-line: 207 30% 88%;
+    --warn: 32 95% 44%;
+    --bad: 0 72% 46%;
+  }
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    font-family: "Outfit", sans-serif;
+    background: hsl(var(--zentia-surface));
+    color: hsl(var(--zentia-navy));
+    font-size: 1rem;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, h4 {
+    font-family: "Montserrat", sans-serif;
+    letter-spacing: -0.01em;
+  }
+  :focus-visible {
+    outline: 3px solid hsl(var(--zentia-green));
+    outline-offset: 2px;
+  }
+}
+
+@layer components {
+  .d-shell {
+    @apply min-h-screen lg:grid lg:grid-cols-[248px_minmax(0,1fr)];
+  }
+  .d-side {
+    @apply sticky top-0 z-30 flex items-center justify-between gap-3 px-4 py-3 text-white
+      lg:h-screen lg:flex-col lg:items-stretch lg:justify-start lg:gap-8 lg:px-5 lg:py-7;
+    background: hsl(var(--zentia-navy-deep));
+  }
+  .d-nav {
+    @apply hidden flex-col gap-1 lg:flex lg:flex-1;
+  }
+  .d-nav-open {
+    @apply fixed inset-x-0 top-[60px] z-40 flex flex-col gap-1 border-t border-white/10 p-4 lg:static lg:border-0 lg:p-0;
+    background: hsl(var(--zentia-navy-deep));
+  }
+  .d-nav a {
+    @apply flex min-h-[44px] items-center gap-3 rounded-full px-4 font-medium text-white/75 transition-colors;
+  }
+  .d-nav a:hover {
+    @apply bg-white/5 text-white;
+  }
+  .d-nav a.active {
+    @apply text-white;
+    background: hsl(var(--zentia-green) / 0.16);
+    box-shadow: inset 3px 0 0 hsl(var(--zentia-green));
+  }
+  .d-main {
+    @apply min-w-0 px-4 pb-16 pt-6 sm:px-6 lg:px-10 lg:pt-9;
+  }
+  .d-top {
+    @apply mb-7 flex flex-wrap items-end justify-between gap-4;
+  }
+  .d-h1 {
+    @apply text-[1.75rem] font-bold leading-tight md:text-[2.1rem];
+  }
+  .d-sub {
+    @apply mt-1;
+    color: hsl(var(--zentia-slate));
+  }
+  .d-card {
+    @apply rounded-[1.5rem] bg-white p-5 md:p-6;
+    border: 1px solid hsl(var(--zentia-line));
+  }
+  .d-card-dark {
+    @apply rounded-[1.5rem] p-5 text-white md:p-6;
+    background: hsl(var(--zentia-navy));
+  }
+  .d-h2 {
+    @apply text-lg font-bold;
+  }
+  .d-muted {
+    color: hsl(var(--zentia-slate));
+  }
+  .d-kpi-value {
+    @apply mt-1 font-heading text-[2rem] font-bold leading-none tabular-nums;
+  }
+  .d-kpi-label {
+    @apply text-sm font-medium;
+    color: hsl(var(--zentia-slate));
+  }
+  .d-delta {
+    @apply inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-semibold tabular-nums;
+  }
+  .d-delta-up {
+    background: hsl(var(--zentia-green) / 0.14);
+    color: hsl(var(--zentia-green-ink));
+  }
+  .d-delta-down {
+    background: hsl(var(--bad) / 0.1);
+    color: hsl(var(--bad));
+  }
+  .d-delta-flat {
+    background: hsl(var(--zentia-line) / 0.7);
+    color: hsl(var(--zentia-slate));
+  }
+  .d-seg {
+    @apply inline-flex rounded-full bg-white p-1;
+    border: 1px solid hsl(var(--zentia-line));
+  }
+  .d-seg button {
+    @apply min-h-[38px] rounded-full px-4 text-sm font-semibold;
+    color: hsl(var(--zentia-slate));
+  }
+  .d-seg button[aria-pressed="true"] {
+    background: hsl(var(--zentia-navy));
+    color: white;
+  }
+  .d-btn {
+    @apply inline-flex min-h-[44px] items-center justify-center gap-2 rounded-full px-5 font-semibold transition-colors disabled:opacity-60;
+  }
+  .d-btn-primary {
+    background: hsl(var(--zentia-green));
+    color: hsl(var(--zentia-navy-deep));
+  }
+  .d-btn-primary:hover {
+    background: hsl(160 99% 45%);
+  }
+  .d-btn-ghost {
+    @apply bg-white;
+    border: 1px solid hsl(var(--zentia-line));
+  }
+  .d-btn-ghost:hover {
+    border-color: hsl(var(--zentia-navy) / 0.4);
+  }
+  .d-btn-sm {
+    @apply min-h-[36px] px-3.5 text-sm;
+  }
+  .d-input,
+  .d-select,
+  .d-textarea {
+    @apply w-full rounded-2xl bg-white px-4 text-base;
+    border: 1px solid hsl(var(--zentia-navy) / 0.2);
+  }
+  .d-input,
+  .d-select {
+    @apply h-[46px];
+  }
+  .d-textarea {
+    @apply py-3;
+  }
+  .d-label {
+    @apply flex flex-col gap-1.5 text-sm font-semibold;
+  }
+  .d-table {
+    @apply w-full text-left text-[0.95rem];
+  }
+  .d-table th {
+    @apply whitespace-nowrap px-3 pb-2 text-xs font-semibold uppercase tracking-wide;
+    color: hsl(var(--zentia-slate));
+  }
+  .d-table td {
+    @apply px-3 py-2.5 align-top;
+    border-top: 1px solid hsl(var(--zentia-line));
+  }
+  .d-table .num {
+    @apply text-right tabular-nums;
+  }
+  .d-badge {
+    @apply inline-flex items-center whitespace-nowrap rounded-full px-2.5 py-0.5 text-xs font-semibold;
+    background: hsl(var(--zentia-surface));
+    color: hsl(var(--zentia-navy));
+  }
+  .d-badge-green {
+    background: hsl(var(--zentia-green) / 0.14);
+    color: hsl(var(--zentia-green-ink));
+  }
+  .d-badge-warn {
+    background: hsl(var(--warn) / 0.12);
+    color: hsl(28 90% 32%);
+  }
+  .d-badge-bad {
+    background: hsl(var(--bad) / 0.1);
+    color: hsl(var(--bad));
+  }
+  .d-badge-navy {
+    background: hsl(var(--zentia-navy));
+    color: white;
+  }
+  .d-bar {
+    @apply relative flex min-h-[38px] items-center justify-between gap-3 overflow-hidden rounded-xl px-3 text-[0.95rem];
+  }
+  .d-bar-fill {
+    @apply absolute inset-y-0 left-0 rounded-xl;
+    background: hsl(var(--zentia-green) / 0.16);
+  }
+  .d-insight {
+    @apply flex gap-3 rounded-2xl p-4;
+    background: hsl(var(--zentia-surface));
+  }
+  .d-insight-action {
+    background: hsl(var(--warn) / 0.09);
+  }
+  .d-insight-good {
+    background: hsl(var(--zentia-green) / 0.1);
+  }
+  .d-insight-warn {
+    background: hsl(var(--bad) / 0.07);
+  }
+  .d-empty {
+    @apply rounded-2xl border border-dashed p-6 text-center;
+    border-color: hsl(var(--zentia-navy) / 0.2);
+    color: hsl(var(--zentia-slate));
+  }
+  .d-link {
+    @apply font-semibold underline underline-offset-4;
+  }
+  .d-scroll {
+    @apply -mx-5 overflow-x-auto px-5 md:-mx-6 md:px-6;
+  }
+}
