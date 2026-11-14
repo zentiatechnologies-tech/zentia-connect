@@ -1,33 +1,11 @@
 // Tool Hub backend: Supabase reads and writes. Everything here is optional.
-// Without the two environment variables below, the page runs from the built-in
-// catalog and sends suggestions and consult requests by email or WhatsApp.
-import type { SupabaseClient } from "@supabase/supabase-js";
+// Without the backend, the page runs from the built-in catalog and sends
+// suggestions and consult requests by email or WhatsApp.
+import { client, withSession } from "@/lib/backend";
+import { sourceInfo } from "@/lib/analytics";
 import type { Stats, Tool } from "./model";
 
-const url = import.meta.env.VITE_SUPABASE_URL as string | undefined;
-const key = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY as string | undefined;
-
-export const backendEnabled = Boolean(url && key);
-
-let clientPromise: Promise<SupabaseClient> | undefined;
-
-/** The Supabase library is only downloaded when the Tool Hub needs it. */
-function client(): Promise<SupabaseClient> {
-  clientPromise ??= import("@supabase/supabase-js").then((m) => m.createClient(url!, key!));
-  return clientPromise;
-}
-
-/** Visitors get a silent anonymous account the first time they rate or submit
- *  something, so there is one rating per person and no sign-up form. */
-async function withSession(): Promise<SupabaseClient> {
-  const db = await client();
-  const { data } = await db.auth.getSession();
-  if (!data.session) {
-    const { error } = await db.auth.signInAnonymously();
-    if (error) throw error;
-  }
-  return db;
-}
+export { backendEnabled } from "@/lib/backend";
 
 export type HubData = {
   tools: Tool[] | null;
@@ -101,6 +79,7 @@ export async function requestConsult(l: {
     message: l.message.trim() || null,
     prof: l.prof,
     toolkit: l.toolkit,
+    source: sourceInfo(),
   });
   if (error) throw error;
 }

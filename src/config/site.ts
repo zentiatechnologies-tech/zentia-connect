@@ -9,9 +9,10 @@ export const site = {
   email: "info@zentiaai.com",
   phoneDisplay: "+256 793 391 078",
   phoneHref: `tel:+${PHONE_E164}`,
-  /** Paste a Calendly / Google Calendar booking link here. Until then the
-   *  main button opens a pre-written email asking for the call. */
-  bookingUrl: "",
+  /** Your Cal.com event, without "https://cal.com/", e.g. "zentia/20min".
+   *  Until it is set, the booking pop-up collects details and you confirm
+   *  the time yourself. */
+  calLink: (import.meta.env.VITE_CAL_LINK as string | undefined) || "",
   questionnaireUrl:
     "https://docs.google.com/forms/d/e/1FAIpQLSfeBSzD6KqYEuxTsDnBrLbnBkixy3FRge_bBoty4-N54KvTkg/viewform?usp=header",
   socials: [
@@ -31,8 +32,8 @@ export function whatsappLink(message = "Hi Zentia, I'd like to talk about using 
   return `https://wa.me/${PHONE_E164}?text=${encodeURIComponent(message)}`;
 }
 
+/** Used only if JavaScript has not loaded: a pre-written email asking for the call. */
 export function bookingLink() {
-  if (site.bookingUrl) return site.bookingUrl;
   const subject = "Free 20-minute AI readiness call";
   const body =
     "Hi Zentia,\n\nI'd like to book a free 20-minute AI readiness call.\n\nBusiness name:\nWhat we do:\nGood times for a call:\n";

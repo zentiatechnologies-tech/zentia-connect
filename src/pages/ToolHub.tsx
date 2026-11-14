@@ -5,6 +5,7 @@ import CTASection from "@/components/CTASection";
 import PillStack from "@/components/PillStack";
 import { WhatsAppButton } from "@/components/Actions";
 import { usePageMeta } from "@/hooks/usePageMeta";
+import { track } from "@/lib/analytics";
 import { pages } from "@/config/seo";
 import { site } from "@/config/site";
 import {
@@ -81,6 +82,7 @@ export default function ToolHub() {
 
   const build = () => {
     setAnswers({ prof, goals: picked, comfort, budget });
+    track("hub_plan", prof);
     requestAnimationFrame(() =>
       resultsRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }),
     );
@@ -136,6 +138,7 @@ export default function ToolHub() {
       };
     });
     rateTool(tool.id, stars, ratedAs).catch(() => {});
+    track("rate", `${tool.id}:${stars}`);
   };
   const ratingProps = (t: Tool) =>
     backendEnabled
@@ -637,6 +640,7 @@ function ConsultForm({ prof, toolkit }: { prof: string; toolkit: string[] }) {
         toolkit,
       });
       setState("sent");
+      track("consult_sent", prof);
     } catch {
       setState("error");
     }
@@ -699,6 +703,7 @@ function SuggestForm({ prof }: { prof: string | null }) {
         prof,
       });
       setState("sent");
+      track("suggest_sent");
     } catch {
       setState("error");
     }

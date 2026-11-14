@@ -31,7 +31,7 @@ export default function Navbar() {
         </nav>
 
         <div className="flex items-center gap-3">
-          <BookCallButton className="btn-sm hidden sm:inline-flex" />
+          <BookCallButton className="btn-sm hidden sm:inline-flex" from="nav" />
           <button
             type="button"
             onClick={() => setOpen(!open)}
@@ -51,7 +51,7 @@ export default function Navbar() {
               {l.label}
             </a>
           ))}
-          <BookCallButton className="mt-3 w-full sm:hidden" />
+          <BookCallButton className="mt-3 w-full sm:hidden" from="nav-mobile" />
         </nav>
       )}
     </header>

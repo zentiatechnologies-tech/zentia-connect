@@ -14,7 +14,7 @@ export default function CTASection() {
           honestly where AI could help first.
         </p>
         <div className="btn-row mt-9">
-          <BookCallButton long />
+          <BookCallButton long from="footer-cta" />
           <WhatsAppButton />
         </div>
         <p className="mt-8 text-white/80">

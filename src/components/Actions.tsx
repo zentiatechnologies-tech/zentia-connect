@@ -1,5 +1,6 @@
 import { ArrowRight } from "lucide-react";
-import { bookingLink, cta, site, whatsappLink } from "@/config/site";
+import { bookingLink, cta, whatsappLink } from "@/config/site";
+import { useBooking } from "@/lib/booking";
 
 export function WhatsAppIcon({ size = 18 }: { size?: number }) {
   return (
@@ -11,10 +12,29 @@ export function WhatsAppIcon({ size = 18 }: { size?: number }) {
 
 const external = { target: "_blank", rel: "noopener noreferrer" } as const;
 
-export function BookCallButton({ long = false, className = "" }: { long?: boolean; className?: string }) {
-  const href = bookingLink();
+/** Opens the booking pop-up. The email link underneath is the fallback if
+ *  JavaScript has not loaded yet. */
+export function BookCallButton({
+  long = false,
+  className = "",
+  from,
+}: {
+  long?: boolean;
+  className?: string;
+  from?: string;
+}) {
+  const booking = useBooking();
   return (
-    <a href={href} className={`btn btn-primary ${className}`} {...(site.bookingUrl ? external : {})}>
+    <a
+      href={bookingLink()}
+      className={`btn btn-primary ${className}`}
+      data-track={cta.label}
+      onClick={(e) => {
+        if (!booking) return;
+        e.preventDefault();
+        booking.open(from);
+      }}
+    >
       {long ? (
         <>
           <span className="sm:hidden">{cta.label}</span>

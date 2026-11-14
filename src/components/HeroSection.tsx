@@ -16,7 +16,7 @@ export default function HeroSection() {
             your team to run it.
           </p>
           <div className="btn-row mt-9">
-            <BookCallButton long />
+            <BookCallButton long from="hero" />
             <WhatsAppButton />
           </div>
           <p className="mt-6 text-white/75">
